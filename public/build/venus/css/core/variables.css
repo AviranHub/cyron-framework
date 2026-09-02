@@ -1,0 +1,231 @@
+:root {
+    /* ===== رنگ‌های اصلی (Primary) - Coral/Red tone ===== */
+    --cyron-primary-50: #fff1f0;
+    --cyron-primary-100: #ffe0de;
+    --cyron-primary-200: #ffc7c4;
+    --cyron-primary-300: #ffa09b;
+    --cyron-primary-400: #ff6e66;
+    --cyron-primary-500: #ff4a3f;
+    --cyron-primary-600: #ed2a1e;
+    --cyron-primary-700: #c81e13;
+    --cyron-primary-800: #a51b12;
+    --cyron-primary-900: #881d16;
+    
+    /* ===== رنگ‌های خاکستری ===== */
+    --cyron-gray-50: #f9fafb;
+    --cyron-gray-100: #f3f4f6;
+    --cyron-gray-200: #e5e7eb;
+    --cyron-gray-300: #d1d5db;
+    --cyron-gray-400: #9ca3af;
+    --cyron-gray-500: #6b7280;
+    --cyron-gray-600: #4b5563;
+    --cyron-gray-700: #374151;
+    --cyron-gray-800: #1f2937;
+    --cyron-gray-900: #111827;
+    
+    /* ===== رنگ‌های معنایی ===== */
+    --cyron-success-50: #ecfdf5;
+    --cyron-success-100: #d1fae5;
+    --cyron-success-200: #a7f3d0;
+    --cyron-success-300: #6ee7b7;
+    --cyron-success-400: #34d399;
+    --cyron-success-500: #10b981;
+    --cyron-success-600: #059669;
+    --cyron-success-700: #047857;
+    --cyron-success-800: #065f46;
+    --cyron-success-900: #064e3b;
+    
+    --cyron-warning-50: #fffbeb;
+    --cyron-warning-100: #fef3c7;
+    --cyron-warning-200: #fde68a;
+    --cyron-warning-300: #fcd34d;
+    --cyron-warning-400: #fbbf24;
+    --cyron-warning-500: #f59e0b;
+    --cyron-warning-600: #d97706;
+    --cyron-warning-700: #b45309;
+    --cyron-warning-800: #92400e;
+    --cyron-warning-900: #78350f;
+    
+    --cyron-error-50: #fef2f2;
+    --cyron-error-100: #fee2e2;
+    --cyron-error-200: #fecaca;
+    --cyron-error-300: #fca5a5;
+    --cyron-error-400: #f87171;
+    --cyron-error-500: #ef4444;
+    --cyron-error-600: #dc2626;
+    --cyron-error-700: #b91c1c;
+    --cyron-error-800: #991b1b;
+    --cyron-error-900: #7f1d1d;
+    
+    --cyron-info-50: #eff6ff;
+    --cyron-info-100: #dbeafe;
+    --cyron-info-200: #bfdbfe;
+    --cyron-info-300: #93c5fd;
+    --cyron-info-400: #60a5fa;
+    --cyron-info-500: #3b82f6;
+    --cyron-info-600: #2563eb;
+    --cyron-info-700: #1d4ed8;
+    --cyron-info-800: #1e40af;
+    --cyron-info-900: #1e3a8a;
+    
+    /* ===== فاصله‌ها (Spacing) ===== */
+    --cyron-space-0: 0;
+    --cyron-space-0-5: 0.125rem;
+    --cyron-space-1: 0.25rem;
+    --cyron-space-1-5: 0.375rem;
+    --cyron-space-2: 0.5rem;
+    --cyron-space-2-5: 0.625rem;
+    --cyron-space-3: 0.75rem;
+    --cyron-space-3-5: 0.875rem;
+    --cyron-space-4: 1rem;
+    --cyron-space-5: 1.25rem;
+    --cyron-space-6: 1.5rem;
+    --cyron-space-7: 1.75rem;
+    --cyron-space-8: 2rem;
+    --cyron-space-9: 2.25rem;
+    --cyron-space-10: 2.5rem;
+    --cyron-space-11: 2.75rem;
+    --cyron-space-12: 3rem;
+    --cyron-space-14: 3.5rem;
+    --cyron-space-16: 4rem;
+    --cyron-space-20: 5rem;
+    --cyron-space-24: 6rem;
+    --cyron-space-28: 7rem;
+    --cyron-space-32: 8rem;
+    --cyron-space-36: 9rem;
+    --cyron-space-40: 10rem;
+    --cyron-space-44: 11rem;
+    --cyron-space-48: 12rem;
+    --cyron-space-52: 13rem;
+    --cyron-space-56: 14rem;
+    --cyron-space-60: 15rem;
+    --cyron-space-64: 16rem;
+    
+    /* ===== تایپوگرافی ===== */
+    --cyron-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --cyron-font-serif: Georgia, 'Times New Roman', serif;
+    --cyron-font-mono: 'Courier New', 'SF Mono', monospace;
+    --cyron-font-vazir: 'Vazirmatn', system-ui, sans-serif;
+    
+    /* سایز فونت‌ها */
+    --cyron-font-xs: 0.75rem;
+    --cyron-font-sm: 0.875rem;
+    --cyron-font-base: 1rem;
+    --cyron-font-lg: 1.125rem;
+    --cyron-font-xl: 1.25rem;
+    --cyron-font-2xl: 1.5rem;
+    --cyron-font-3xl: 1.875rem;
+    --cyron-font-4xl: 2.25rem;
+    --cyron-font-5xl: 3rem;
+    --cyron-font-6xl: 3.75rem;
+    --cyron-font-7xl: 4.5rem;
+    --cyron-font-8xl: 6rem;
+    --cyron-font-9xl: 8rem;
+    
+    /* ضخامت فونت */
+    --cyron-font-thin: 100;
+    --cyron-font-extralight: 200;
+    --cyron-font-light: 300;
+    --cyron-font-normal: 400;
+    --cyron-font-medium: 500;
+    --cyron-font-semibold: 600;
+    --cyron-font-bold: 700;
+    --cyron-font-extrabold: 800;
+    --cyron-font-black: 900;
+    
+    /* ===== حاشیه‌ها (Border Radius) ===== */
+    --cyron-radius-none: 0;
+    --cyron-radius-sm: 0.125rem;
+    --cyron-radius-md: 0.375rem;
+    --cyron-radius-lg: 0.5rem;
+    --cyron-radius-xl: 0.75rem;
+    --cyron-radius-2xl: 1rem;
+    --cyron-radius-3xl: 1.5rem;
+    --cyron-radius-full: 9999px;
+    
+    /* ===== سایه‌ها (Shadows) ===== */
+    --cyron-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --cyron-shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --cyron-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --cyron-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --cyron-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --cyron-shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --cyron-shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    
+    /* ===== ترنزیشن (Transitions) ===== */
+    --cyron-transition-fast: 150ms;
+    --cyron-transition-normal: 300ms;
+    --cyron-transition-slow: 500ms;
+    
+    --cyron-ease-linear: linear;
+    --cyron-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --cyron-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --cyron-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* ===== زوم (Z-index) ===== */
+    --cyron-z-dropdown: 1000;
+    --cyron-z-sticky: 1020;
+    --cyron-z-fixed: 1030;
+    --cyron-z-modal-backdrop: 1040;
+    --cyron-z-modal: 1050;
+    --cyron-z-popover: 1060;
+    --cyron-z-tooltip: 1070;
+    --cyron-z-toast: 1080;
+    
+    /* ===== عرض‌ها (Container) ===== */
+    --cyron-container-sm: 640px;
+    --cyron-container-md: 768px;
+    --cyron-container-lg: 1024px;
+    --cyron-container-xl: 1280px;
+    --cyron-container-2xl: 1536px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --cyron-gray-50: #18181b;
+        --cyron-gray-100: #27272a;
+        --cyron-gray-200: #3f3f46;
+        --cyron-gray-300: #52525b;
+        --cyron-gray-400: #71717a;
+        --cyron-gray-500: #a1a1aa;
+        --cyron-gray-600: #d4d4d8;
+        --cyron-gray-700: #e4e4e7;
+        --cyron-gray-800: #f4f4f5;
+        --cyron-gray-900: #fafafa;
+    }
+}
+
+/* Explicit dark mode */
+[data-theme="dark"] {
+    --cyron-gray-50: #18181b;
+    --cyron-gray-100: #27272a;
+    --cyron-gray-200: #3f3f46;
+    --cyron-gray-300: #52525b;
+    --cyron-gray-400: #71717a;
+    --cyron-gray-500: #a1a1aa;
+    --cyron-gray-600: #d4d4d8;
+    --cyron-gray-700: #e4e4e7;
+    --cyron-gray-800: #f4f4f5;
+    --cyron-gray-900: #fafafa;
+    
+    /* Dark mode semantic colors */
+    --cyron-success-500: #34d399;
+    --cyron-warning-500: #fbbf24;
+    --cyron-error-500: #f87171;
+    --cyron-info-500: #60a5fa;
+}
+
+/* Light mode override */
+[data-theme="light"] {
+    --cyron-gray-50: #f9fafb;
+    --cyron-gray-100: #f3f4f6;
+    --cyron-gray-200: #e5e7eb;
+    --cyron-gray-300: #d1d5db;
+    --cyron-gray-400: #9ca3af;
+    --cyron-gray-500: #6b7280;
+    --cyron-gray-600: #4b5563;
+    --cyron-gray-700: #374151;
+    --cyron-gray-800: #1f2937;
+    --cyron-gray-900: #111827;
+}

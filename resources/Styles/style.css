@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url('/fonts/Vazir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Faraz';
+    src: url('/fonts/Mj_Faraz_0.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Titr';
+    src: url('/fonts/titr.ttf') format('truetype');
+    /* font-weight: normal;
+    font-style: normal;
+    font-display: swap; */
+}
+
+@font-face {
+    font-family: 'Traffic';
+    src: url('/fonts/B_Traffic_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'IranSans';
+    src: url('/fonts/IRANSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@custom-variant dark (&:where(.dark, .dark *));

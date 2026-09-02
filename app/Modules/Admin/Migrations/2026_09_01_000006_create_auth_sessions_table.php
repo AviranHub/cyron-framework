@@ -1,0 +1,3 @@
+<?php
+use App\Database\Migration;use App\Database\Schema;use App\Database\TableBuilder;
+return new class extends Migration{public static function up(){Schema::create('auth_sessions',function(TableBuilder $table){$table->id();$table->integer('user_id')->index();$table->string('token_hash',64)->unique();$table->string('ip_address',64)->nullable();$table->text('user_agent')->nullable();$table->timestamp('last_seen_at')->index();$table->timestamp('revoked_at')->nullable()->index();$table->timestamp('created_at')->index();});}public static function down(){Schema::dropIfExists('auth_sessions');}};

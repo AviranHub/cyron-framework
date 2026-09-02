@@ -1,0 +1,25 @@
+{
+    "admin": {
+        "controllers": "Http\/Controllers\/Admin",
+        "views": "Views\/admin",
+        "routes": "admin.php",
+        "assets": "assets\/admin",
+        "config": "config\/admin.php"
+    },
+    "plugin_TextEditor": {
+        "controllers": "Http\/Controllers\/TextEditor",
+        "views": "views\/texteditor",
+        "routes": "texteditor.php",
+        "assets": "assets\/texteditor",
+        "config": "texteditor.php"
+    },
+    "auth": {
+        "controllers": "Http\/Controllers",
+        "middlewares": "Http\/Middlewares",
+        "models": "Models",
+        "views": "views",
+        "routes": "auth.php",
+        "config": "auth.php",
+        "migrations": "database\/Migrations"
+    }
+}

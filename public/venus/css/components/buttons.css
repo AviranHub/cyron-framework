@@ -1,0 +1,267 @@
+/* Button Base */
+.cyron-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cyron-space-2);
+    padding: var(--cyron-space-2) var(--cyron-space-4);
+    font-size: var(--cyron-font-sm);
+    font-weight: var(--cyron-font-medium);
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: var(--cyron-radius-md);
+    background-color: transparent;
+    transition: all var(--cyron-transition-fast) var(--cyron-ease-in-out);
+}
+
+.cyron-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Button Variants - Primary */
+.cyron-btn-primary {
+    background-color: var(--cyron-primary-600);
+    border-color: var(--cyron-primary-600);
+    color: white;
+}
+
+.cyron-btn-primary:hover,
+.cyron-btn-primary:focus {
+    background-color: var(--cyron-primary-700);
+    border-color: var(--cyron-primary-700);
+    transform: translateY(-1px);
+}
+
+.cyron-btn-primary:active {
+    background-color: var(--cyron-primary-800);
+    border-color: var(--cyron-primary-800);
+    transform: translateY(0);
+}
+
+/* Button Variants - Secondary */
+.cyron-btn-secondary {
+    background-color: var(--cyron-gray-200);
+    border-color: var(--cyron-gray-200);
+    color: var(--cyron-gray-800);
+}
+
+.cyron-btn-secondary:hover,
+.cyron-btn-secondary:focus {
+    background-color: var(--cyron-gray-300);
+    border-color: var(--cyron-gray-300);
+}
+
+/* Button Variants - Success */
+.cyron-btn-success {
+    background-color: var(--cyron-success-500);
+    border-color: var(--cyron-success-500);
+    color: white;
+}
+
+.cyron-btn-success:hover,
+.cyron-btn-success:focus {
+    background-color: var(--cyron-success-600);
+    border-color: var(--cyron-success-600);
+}
+
+/* Button Variants - Danger/Error */
+.cyron-btn-danger {
+    background-color: var(--cyron-error-500);
+    border-color: var(--cyron-error-500);
+    color: white;
+}
+
+.cyron-btn-danger:hover,
+.cyron-btn-danger:focus {
+    background-color: var(--cyron-error-600);
+    border-color: var(--cyron-error-600);
+}
+
+/* Button Variants - Warning */
+.cyron-btn-warning {
+    background-color: var(--cyron-warning-500);
+    border-color: var(--cyron-warning-500);
+    color: white;
+}
+
+.cyron-btn-warning:hover,
+.cyron-btn-warning:focus {
+    background-color: var(--cyron-warning-600);
+    border-color: var(--cyron-warning-600);
+}
+
+/* Button Variants - Info */
+.cyron-btn-info {
+    background-color: var(--cyron-info-500);
+    border-color: var(--cyron-info-500);
+    color: white;
+}
+
+.cyron-btn-info:hover,
+.cyron-btn-info:focus {
+    background-color: var(--cyron-info-600);
+    border-color: var(--cyron-info-600);
+}
+
+/* Button Variants - Outline */
+.cyron-btn-outline {
+    background-color: transparent;
+    border-color: var(--cyron-gray-300);
+    color: var(--cyron-gray-700);
+}
+
+.cyron-btn-outline:hover,
+.cyron-btn-outline:focus {
+    background-color: var(--cyron-gray-100);
+    border-color: var(--cyron-gray-400);
+}
+
+.cyron-btn-outline-primary {
+    background-color: transparent;
+    border-color: var(--cyron-primary-600);
+    color: var(--cyron-primary-600);
+}
+
+.cyron-btn-outline-primary:hover,
+.cyron-btn-outline-primary:focus {
+    background-color: var(--cyron-primary-600);
+    color: white;
+}
+
+.cyron-btn-outline-danger {
+    background-color: transparent;
+    border-color: var(--cyron-error-500);
+    color: var(--cyron-error-500);
+}
+
+.cyron-btn-outline-danger:hover,
+.cyron-btn-outline-danger:focus {
+    background-color: var(--cyron-error-500);
+    color: white;
+}
+
+/* Button Variants - Ghost */
+.cyron-btn-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--cyron-gray-700);
+}
+
+.cyron-btn-ghost:hover,
+.cyron-btn-ghost:focus {
+    background-color: var(--cyron-gray-100);
+}
+
+/* Button Sizes */
+.cyron-btn-xs {
+    padding: var(--cyron-space-1) var(--cyron-space-2);
+    font-size: var(--cyron-font-xs);
+    border-radius: var(--cyron-radius-sm);
+}
+
+.cyron-btn-sm {
+    padding: var(--cyron-space-1-5) var(--cyron-space-3);
+    font-size: var(--cyron-font-sm);
+}
+
+.cyron-btn-lg {
+    padding: var(--cyron-space-3) var(--cyron-space-6);
+    font-size: var(--cyron-font-base);
+    border-radius: var(--cyron-radius-lg);
+}
+
+.cyron-btn-xl {
+    padding: var(--cyron-space-4) var(--cyron-space-8);
+    font-size: var(--cyron-font-lg);
+    border-radius: var(--cyron-radius-xl);
+}
+
+/* Button Block (Full Width) */
+.cyron-btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/* Button with Icon */
+.cyron-btn-icon {
+    padding: var(--cyron-space-2);
+    border-radius: var(--cyron-radius-full);
+}
+
+.cyron-btn-icon-sm {
+    padding: var(--cyron-space-1);
+}
+
+.cyron-btn-icon-lg {
+    padding: var(--cyron-space-3);
+}
+
+/* Button Group */
+.cyron-btn-group {
+    display: inline-flex;
+    position: relative;
+}
+
+.cyron-btn-group .cyron-btn {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.cyron-btn-group .cyron-btn:not(:first-child) {
+    margin-left: -1px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.cyron-btn-group .cyron-btn:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.cyron-btn-group-vertical {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.cyron-btn-group-vertical .cyron-btn:not(:first-child) {
+    margin-top: -1px;
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.cyron-btn-group-vertical .cyron-btn:not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* Loading State */
+.cyron-btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.cyron-btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    top: calc(50% - 0.5rem);
+    left: calc(50% - 0.5rem);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: cyron-spin 0.6s linear infinite;
+}
+
+@keyframes cyron-spin {
+    to { transform: rotate(360deg); }
+}

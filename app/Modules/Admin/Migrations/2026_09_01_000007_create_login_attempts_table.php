@@ -1,0 +1,3 @@
+<?php
+use App\Database\Migration;use App\Database\Schema;use App\Database\TableBuilder;
+return new class extends Migration{public static function up(){Schema::create('login_attempts',function(TableBuilder $table){$table->id();$table->string('key',191)->index();$table->integer('successful')->index();$table->timestamp('occurred_at')->index();});}public static function down(){Schema::dropIfExists('login_attempts');}};

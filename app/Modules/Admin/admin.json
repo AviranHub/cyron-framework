@@ -1,0 +1,11 @@
+{
+    "name": "Admin",
+    "version": "1.0.0",
+    "publish": {
+        "controllers": "Http/Controllers/Admin",
+        "views": "Views/admin",
+        "routes": "admin.php",
+        "assets": "assets/admin",
+        "config": "config/admin.php"
+    }
+}

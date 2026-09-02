@@ -1,0 +1,1 @@
+<img src="/assets/img/icon.png" {{ $attributes->all() }} />

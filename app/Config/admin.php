@@ -1,0 +1,77 @@
+<?php
+return [
+    'users' => [
+        'model'    => \App\Models\User::class,
+        'label'    => 'کاربران',
+        'columns'  => ['id', 'name', 'email', 'role', 'created_at'],
+        'searchable' => ['name', 'email'],
+        'form' => [
+            'name'     => 'text|required',
+            'email'    => 'email|required|unique',
+            'password' => 'password|required|min:6|confirmed',
+            'role'     => 'select:admin,user,editor',
+            'status'   => 'select:active,inactive',
+        ],
+    ],
+    'roles' => [
+        'model'      => \App\Models\Role::class,
+        'label'      => 'نقش‌ها',
+        'icon'       => 'shield',
+        'columns'    => ['id', 'name', 'slug', 'description', 'is_system', 'is_active', 'priority'],
+        'searchable' => ['name', 'slug', 'description'],
+        'sortable'   => ['id', 'priority', 'is_active'],
+        'filters'    => ['is_active' => [1 => 'فعال', 0 => 'غیرفعال'], 'is_system' => [1 => 'سیستمی', 0 => 'کاربری']],
+        'form' => [
+            'name'        => 'text|required|max:191',
+            'slug'        => 'text|required|max:191|unique:roles,slug',
+            'description' => 'textarea|nullable',
+            'is_system'   => 'checkbox',
+            'is_active'   => 'checkbox:1',
+            'priority'    => 'number|integer|min:0',
+        ],
+        'relations' => [
+            'permissions' => [
+                'type' => 'belongsToMany',
+                'label' => 'دسترسی‌ها',
+                'pivot' => 'role_permissions',
+            ],
+            'users' => [
+                'type' => 'belongsToMany',
+                'label' => 'کاربران',
+                'pivot' => 'user_roles',
+            ],
+        ],
+    ],
+    'permissions' => [
+        'model'      => \App\Models\Permission::class,
+        'label'      => 'دسترسی‌ها',
+        'icon'       => 'key',
+        'columns'    => ['id', 'name', 'slug', 'group', 'module', 'is_critical'],
+        'searchable' => ['name', 'slug', 'group', 'module'],
+        'sortable'   => ['id', 'group', 'module'],
+        'filters'    => ['group' => ['user', 'role', 'content', 'system'], 'is_critical' => [1 => 'بحرانی', 0 => 'عادی']],
+        'form' => [
+            'name'         => 'text|required|max:191',
+            'slug'         => 'text|required|max:191|unique:permissions,slug',
+            'group'        => 'text|required|max:191',
+            'module'       => 'text|nullable|max:191',
+            'description'  => 'textarea|nullable',
+            'is_critical'  => 'checkbox',
+        ],
+    ],
+    'books' => [
+        'model'    => \App\Models\Book::class,
+        'label'    => 'کتاب‌ها',
+        'icon' => 'book',
+        'columns'  => ['id', 'title', 'author_name', 'price'],
+        'searchable' => ['title', 'author_name'],
+        'form' => [
+            'title'       => 'text|required',
+            'slug'        => 'text|required|unique',
+            'author_name' => 'text',
+            'price'       => 'number',
+            'cover'       => 'file|image',
+            'description' => 'textarea',
+        ],
+    ],
+];

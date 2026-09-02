@@ -1,0 +1,13 @@
+{
+  "resources/Scripts/script.js": {
+    "file": "assets/script-BwdhqSVc.js",
+    "name": "script",
+    "src": "resources/Scripts/script.js",
+    "isEntry": true
+  },
+  "resources/Styles/style.css": {
+    "file": "assets/style-D3IFFp1n.css",
+    "src": "resources/Styles/style.css",
+    "isEntry": true
+  }
+}

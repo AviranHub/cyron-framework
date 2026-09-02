@@ -1,0 +1,7 @@
+@extends('layouts.app')
+@section('content')
+<div class="container mx-auto px-4 py-8"><div class="flex items-center justify-between mb-6"><div><h1 class="text-2xl font-bold">سلام {{ $user->name }}</h1><p class="text-gray-500">مدیریت حساب و تنظیمات شخصی</p></div></div>
+@if(session('success'))<div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session('success') }}</div>@endif
+<div class="grid gap-4 md:grid-cols-2"><div class="bg-white rounded-xl shadow-sm border p-6"><h2 class="font-bold mb-4">اطلاعات حساب</h2><p class="mb-2"><strong>ایمیل:</strong> {{ $user->email }}</p><p><strong>تلفن:</strong> {{ $user->phone ?? 'ثبت نشده' }}</p></div><div class="bg-white rounded-xl shadow-sm border p-6"><h2 class="font-bold mb-4">امنیت حساب</h2><p class="text-gray-500 mb-4">رمز عبور و اطلاعات دسترسی خود را مدیریت کن.</p><a href="{{ route('user.change-password') }}" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">تغییر رمز عبور</a></div></div>
+<div class="mt-6 flex flex-wrap gap-3"><a href="{{ route('user.profile.edit') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg">ویرایش پروفایل</a><form method="POST" action="{{ route('logout') }}">@csrf<button class="bg-red-500 text-white px-4 py-2 rounded-lg">خروج از حساب</button></form></div></div>
+@endsection

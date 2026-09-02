@@ -1,0 +1,189 @@
+/* سایز فونت‌ها */
+.cyron-text-xs { font-size: var(--cyron-font-xs); }
+.cyron-text-sm { font-size: var(--cyron-font-sm); }
+.cyron-text-base { font-size: var(--cyron-font-base); }
+.cyron-text-lg { font-size: var(--cyron-font-lg); }
+.cyron-text-xl { font-size: var(--cyron-font-xl); }
+.cyron-text-2xl { font-size: var(--cyron-font-2xl); }
+.cyron-text-3xl { font-size: var(--cyron-font-3xl); }
+.cyron-text-4xl { font-size: var(--cyron-font-4xl); }
+.cyron-text-5xl { font-size: var(--cyron-font-5xl); }
+.cyron-text-6xl { font-size: var(--cyron-font-6xl); }
+.cyron-text-7xl { font-size: var(--cyron-font-7xl); }
+.cyron-text-8xl { font-size: var(--cyron-font-8xl); }
+.cyron-text-9xl { font-size: var(--cyron-font-9xl); }
+
+/* ضخامت فونت */
+.cyron-font-thin { font-weight: var(--cyron-font-thin); }
+.cyron-font-extralight { font-weight: var(--cyron-font-extralight); }
+.cyron-font-light { font-weight: var(--cyron-font-light); }
+.cyron-font-normal { font-weight: var(--cyron-font-normal); }
+.cyron-font-medium { font-weight: var(--cyron-font-medium); }
+.cyron-font-semibold { font-weight: var(--cyron-font-semibold); }
+.cyron-font-bold { font-weight: var(--cyron-font-bold); }
+.cyron-font-extrabold { font-weight: var(--cyron-font-extrabold); }
+.cyron-font-black { font-weight: var(--cyron-font-black); }
+
+/* ارتفاع خط */
+.cyron-leading-none { line-height: 1; }
+.cyron-leading-tight { line-height: 1.25; }
+.cyron-leading-snug { line-height: 1.375; }
+.cyron-leading-normal { line-height: 1.5; }
+.cyron-leading-relaxed { line-height: 1.625; }
+.cyron-leading-loose { line-height: 2; }
+
+/* حروف */
+.cyron-tracking-tighter { letter-spacing: -0.05em; }
+.cyron-tracking-tight { letter-spacing: -0.025em; }
+.cyron-tracking-normal { letter-spacing: 0; }
+.cyron-tracking-wide { letter-spacing: 0.025em; }
+.cyron-tracking-wider { letter-spacing: 0.05em; }
+.cyron-tracking-widest { letter-spacing: 0.1em; }
+
+/* تراز متن */
+.cyron-text-left { text-align: left; }
+.cyron-text-center { text-align: center; }
+.cyron-text-right { text-align: right; }
+.cyron-text-justify { text-align: justify; }
+
+/* رنگ‌های متن - Primary */
+.cyron-text-primary-50 { color: var(--cyron-primary-50); }
+.cyron-text-primary-100 { color: var(--cyron-primary-100); }
+.cyron-text-primary-200 { color: var(--cyron-primary-200); }
+.cyron-text-primary-300 { color: var(--cyron-primary-300); }
+.cyron-text-primary-400 { color: var(--cyron-primary-400); }
+.cyron-text-primary-500 { color: var(--cyron-primary-500); }
+.cyron-text-primary-600 { color: var(--cyron-primary-600); }
+.cyron-text-primary-700 { color: var(--cyron-primary-700); }
+.cyron-text-primary-800 { color: var(--cyron-primary-800); }
+.cyron-text-primary-900 { color: var(--cyron-primary-900); }
+
+/* رنگ‌های متن - Gray */
+.cyron-text-gray-50 { color: var(--cyron-gray-50); }
+.cyron-text-gray-100 { color: var(--cyron-gray-100); }
+.cyron-text-gray-200 { color: var(--cyron-gray-200); }
+.cyron-text-gray-300 { color: var(--cyron-gray-300); }
+.cyron-text-gray-400 { color: var(--cyron-gray-400); }
+.cyron-text-gray-500 { color: var(--cyron-gray-500); }
+.cyron-text-gray-600 { color: var(--cyron-gray-600); }
+.cyron-text-gray-700 { color: var(--cyron-gray-700); }
+.cyron-text-gray-800 { color: var(--cyron-gray-800); }
+.cyron-text-gray-900 { color: var(--cyron-gray-900); }
+
+/* رنگ‌های معنایی */
+.cyron-text-success { color: var(--cyron-success-500); }
+.cyron-text-warning { color: var(--cyron-warning-500); }
+.cyron-text-error { color: var(--cyron-error-500); }
+.cyron-text-info { color: var(--cyron-info-500); }
+
+/* دکوریشن متن */
+.cyron-underline { text-decoration: underline; }
+.cyron-line-through { text-decoration: line-through; }
+.cyron-no-underline { text-decoration: none; }
+
+/* تبدیل متن */
+.cyron-uppercase { text-transform: uppercase; }
+.cyron-lowercase { text-transform: lowercase; }
+.cyron-capitalize { text-transform: capitalize; }
+.cyron-normal-case { text-transform: none; }
+
+/* سرریز متن */
+.cyron-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cyron-line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cyron-line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cyron-line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cyron-line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cyron-line-clamp-5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* متن سرریز با نقطه چین */
+.cyron-break-words {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.cyron-break-all {
+    word-break: break-all;
+}
+
+.cyron-whitespace-normal {
+    white-space: normal;
+}
+
+.cyron-whitespace-nowrap {
+    white-space: nowrap;
+}
+
+.cyron-whitespace-pre {
+    white-space: pre;
+}
+
+/* استایل تیترها */
+h1, .cyron-h1 {
+    font-size: var(--cyron-font-4xl);
+    font-weight: var(--cyron-font-bold);
+    line-height: 1.2;
+}
+
+h2, .cyron-h2 {
+    font-size: var(--cyron-font-3xl);
+    font-weight: var(--cyron-font-semibold);
+    line-height: 1.3;
+}
+
+h3, .cyron-h3 {
+    font-size: var(--cyron-font-2xl);
+    font-weight: var(--cyron-font-semibold);
+    line-height: 1.4;
+}
+
+h4, .cyron-h4 {
+    font-size: var(--cyron-font-xl);
+    font-weight: var(--cyron-font-medium);
+    line-height: 1.4;
+}
+
+h5, .cyron-h5 {
+    font-size: var(--cyron-font-lg);
+    font-weight: var(--cyron-font-medium);
+    line-height: 1.5;
+}
+
+h6, .cyron-h6 {
+    font-size: var(--cyron-font-base);
+    font-weight: var(--cyron-font-semibold);
+    line-height: 1.5;
+}

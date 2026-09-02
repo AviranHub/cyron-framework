@@ -1,0 +1,23 @@
+<?php
+return [
+    'home' => 'Home',
+    'books' => 'Books',
+    'blog' => 'Blog',
+    'about_us' => 'About Us',
+    'contact_us' => 'Contact Us',
+    'categories' => 'Categories',
+    'search_placeholder' => 'Search books, authors...',
+    'hero_title' => 'Discover the world of books at <span class="text-amber-500 dark:text-amber-300">Ketabekhane</span>',
+    'hero_subtitle' => 'Read, download and enjoy the best e-books. Free membership!',
+    'start_now' => 'Start Now',
+    'view_books' => 'View Books',
+    'free' => 'Free',
+    'author' => 'Author',
+    'toman' => 'Toman',
+    'footer_about' => 'About Ketabekhane',
+    'footer_about_text' => 'Ketabekhane is the largest e-book platform in Iran, created to provide easy access to thousands of valuable books.',
+    'quick_access' => 'Quick Access',
+    'categories_list' => 'Categories',
+    'contact_us' => 'Contact Us',
+    'all_rights_reserved' => 'All rights reserved',
+];

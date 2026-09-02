@@ -1,0 +1,268 @@
+<html lang="fa" dir="rtl" x-data="{ open: false }">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>jinja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&amp;display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="flex">
+        <div :class="{'block': open, 'hidden': !open}"
+            class="w-3/4 sm:w-3/4 lg:w-2/6 xl:w-1/4 bg-white h-screen shadow-md fixed right-0 md:fixed sm:fixed lg:static lg:block z-50">
+            <div class="p-4">
+                <img src="http://pr.serv.wo/assets/img/logo.png" alt="Logo" class="h-8 w-8 mx-auto">
+            </div>
+            <nav class="mt-10" x-data="{ openDropdown: null }">
+                <a href="http://pr.serv.wo/admin/dashboard"
+                    class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 text-right ">
+                    <i class="fas fa-tachometer-alt ml-4 text-indigo-500"></i>
+                    داشبورد
+                </a>
+                <a href="http://pr.serv.wo/admin/register"
+                    class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 text-right ">
+                    <i class="fas fa-plus ml-4 text-indigo-500"></i>
+                    ثبت صنف
+                </a>
+
+
+                <!-- Dropdown 1 -->
+                <div>
+                    <button @click="openDropdown === 1 ? openDropdown = null : openDropdown = 1"
+                        :class="openDropdown === 1 ? 'text-indigo-700' : ''"
+                        class="w-full text-right block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+                        <i class="fas fa-cog ml-4"></i>
+                        مشاهده اصناف
+                        <i :class="{'fa-chevron-down': openDropdown !== 1, 'fa-chevron-up': openDropdown === 1}"
+                            class="fas float-left"></i>
+                    </button>
+                    <div class="pr-8" x-show="openDropdown === 1">
+                        <a href="http://pr.serv.wo/admin/guilds"
+                            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right ">
+                            <i class="fas fa-list ml-4 text-indigo-500"></i>
+                            همه اصناف
+                        </a>
+                        <a href="#"
+                            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right ">
+                            <i class="fas fa-star ml-4 text-yellow-600"></i>
+                            اصناف پیشنهادی
+                        </a>
+                        <a href="#"
+                            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right ">
+                            <i class="fas fa-times-circle ml-4 text-red-500"></i>
+                            اصناف رد شده
+                        </a>
+                        <a href="#"
+                            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right ">
+                            <i class="fas fa-circle-exclamation ml-4 text-yellow-400"></i>
+                            اصناف در انتظار
+                        </a>
+                        <a href="#"
+                            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right ">
+                            <i class="fas fa-check-circle ml-4 text-green-500"></i>
+                            اصناف تایید شده
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Dropdown 2 -->
+                <div>
+                    <button @click="openDropdown === 2 ? openDropdown = null : openDropdown = 2"
+                        :class="openDropdown === 2 ? 'text-indigo-700' : ''"
+                        class="w-full text-right block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+                        <i class="fas fa-tags ml-4"></i>
+                        دسته بندی اصناف
+                        <i :class="{'fa-chevron-down': openDropdown !== 2, 'fa-chevron-up': openDropdown === 2}"
+                            class="fas float-left"></i>
+                    </button>
+                    <div class="pr-8" x-show="openDropdown === 2">
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/add">
+                            <i class="fas fa-plus-circle ml-4 text-green-500"></i>
+                            افزودن دسته
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/edit">
+                            <i class="fas fa-pen-to-square ml-4 text-orange-500"></i>
+                            ویرایش دسته
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/delete">
+                            <i class="fas fa-minus-circle ml-4 text-red-500"></i>
+                            حذف دسته
+                        </a>
+                    </div>
+                </div>
+                <!-- Dropdown 3 -->
+
+                <div>
+                    <button @click="openDropdown === 3 ? openDropdown = null : openDropdown = 3"
+                        :class="openDropdown === 3 ? 'text-indigo-700' : ''"
+                        class="w-full text-right block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+                        <i class="fas fa-cogs ml-4"></i>
+                        تنظیمات عمومی
+                        <i :class="{'fa-chevron-down': openDropdown !== 3, 'fa-chevron-up': openDropdown === 3}"
+                            class="fas float-left"></i>
+                    </button>
+                    <div class="pr-8" x-show="openDropdown === 3">
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/add">
+                            <i class="fas fa-plus-circle ml-4 text-green-500"></i>
+                            افزودن عکس به اسلایدر
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/edit">
+                            <i class="fas fa-pen-to-square ml-4 text-orange-500"></i>
+                            ویرایش تصاویر اسلایدر
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/delete">
+                            <i class="fas fa-minus-circle ml-4 text-red-500"></i>
+                            حذف تصاویر اسلایدر
+                        </a>
+                    </div>
+                </div>
+                <!-- Dropdown 4 -->
+
+                <div>
+                    <button @click="openDropdown === 4 ? openDropdown = null : openDropdown = 4"
+                        :class="openDropdown === 4 ? 'text-indigo-700' : ''"
+                        class="w-full text-right block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+                        <i class="fas fa-lock ml-4 text-green-700"></i>
+                        تنظیمات امنیتی
+                        <i :class="{'fa-chevron-down': openDropdown !== 4, 'fa-chevron-up': openDropdown === 4}"
+                            class="fas float-left"></i>
+                    </button>
+                    <div class="pr-8" x-show="openDropdown === 4">
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/add">
+                            <i class="fas fa-plus-circle ml-4 text-green-500"></i>
+                            افزودن دسته
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/edit">
+                            <i class="fas fa-pen-to-square ml-4 text-orange-500"></i>
+                            ویرایش دسته
+                        </a>
+                        <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-100 text-right"
+                            href="http://pr.serv.wo/admin/guild/category/delete">
+                            <i class="fas fa-minus-circle ml-4 text-red-500"></i>
+                            حذف دسته
+                        </a>
+                    </div>
+                </div>
+
+
+            </nav>
+        </div>
+
+
+        <div class="bg-gray-100 w-full">
+                <header class="bg-white shadow w-full flex justify-between items-center z-20">
+                    <div class="w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between items-center">
+                            <h1 class="text-3xl font-bold text-gray-900 text-right">داشبورد</h1>
+                            <!-- Mobile menu button -->
+                            <div class="sm:hidden">
+                                <button @click="open = !open"
+                                    class="text-gray-500 focus:outline-none focus:text-gray-900">
+                                    <i :class="{'fa-bars': !open, 'fa-times': open}" class="fas text-2xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <main class="mt-16">
+
+                    <div class="py-6 sm:px-6 lg:px-8 w-full">
+                        <div class="px-5 py-5 text-2xl font-bold">
+                            لیست اصناف
+                        </div>
+                        <div class="flex justify-between items-center mb-4 px-2 w-full">
+                            <div class="relative">
+                                <input class="border border-gray-300 rounded-lg py-2 px-4 " placeholder="جستجو ..."
+                                    type="text" />
+                            </div>
+                            <div class="flex items-center">
+                                <span class="ml-2">نمایش</span>
+                                <select class="border border-gray-300 rounded-lg py-2 px-4">
+                                    <option>10</option>
+                                    <option>20</option>
+                                    <option>30</option>
+                                </select>
+                                <span class="mr-2">ردیف</span>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border-collapse rounded-lg shadow-md">
+                                <thead>
+                                    <tr
+                                        class="bg-white text-black uppercase text-sm leading-normal border-b border-gray-200">
+                                        <th class="py-3 px-6 text-right">پروفایل</th>
+                                        <th class="py-3 px-6 text-right">عنوان</th>
+                                        <th class="py-3 px-6 text-right">صاحب صنف</th>
+                                        <th class="py-3 px-6 text-right">تاریخ انتشار</th>
+                                        <th class="py-3 px-6 text-right">وضعیت</th>
+                                        <th class="py-3 px-6 text-right">عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-600 text-sm font-light">
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-right">
+                                            <img alt="تصویر صنف اول" class="w-16 h-16 rounded-lg"
+                                                src="https://storage.googleapis.com/a1aa/image/smhK8Cg91preBi2qEfoGchA5gI0YWaRwyG0UJzeyiiiF4IPnA.jpg" />
+                                        </td>
+                                        <td class="py-3 px-6 text-right">صنف اول</td>
+                                        <td class="py-3 px-6 text-right">علی رضایی</td>
+                                        <td class="py-3 px-6 text-right">1 فروردین 1401</td>
+                                        <td class="py-3 px-6 text-right">
+                                            <span
+                                                class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">منتشر
+                                                شده</span>
+                                        </td>
+                                        <td class="py-3 px-6 text-right">
+                                            <div class="flex item-center justify-center">
+                                                <div class="w-4 ml-4 transform hover:scale-110 text-yellow-500">
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="w-4 ml-4 transform hover:scale-110 text-indigo-500">
+                                                    <i class="fas fa-edit"></i>
+                                                </div>
+                                                <div class="w-4 ml-4 transform hover:scale-110 text-red-500">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- سایر ردیف‌ها -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </main>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('sidebar', () => ({
+                open: false,
+            }))
+        });
+    </script>
+
+
+</body>
+
+</html>

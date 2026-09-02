@@ -1,0 +1,11 @@
+node_modules
+/.env
+/.env.*
+!/.env.example
+/.var
+/.vscode/
+/vendor/
+*.log
+/storage/logs/*
+/storage/cache/*
+/storage/framework/*

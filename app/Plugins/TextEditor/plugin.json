@@ -1,0 +1,14 @@
+{
+    "name": "TextEditor",
+    "version": "1.0.0",
+    "author": "Cyron",
+    "description": "Description for TextEditor plugin",
+    "publish": {
+        "controllers": "Http\/Controllers\/TextEditor",
+        "views": "views\/texteditor",
+        "routes": "texteditor.php",
+        "assets": "assets\/texteditor",
+        "config": "texteditor.php"
+    },
+    "dependencies": []
+}
