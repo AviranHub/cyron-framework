@@ -10,14 +10,13 @@ class TableBuilder
     protected string $table;
     protected string $engine = 'InnoDB';
     protected string $charset = 'utf8mb4';
-    protected ?string $lastColumnName = null; // برای پیگیری آخرین ستون اضافه شده
+    protected ?string $lastColumnName = null;
 
     public function __construct(string $table)
     {
         $this->table = $table;
     }
 
-    // ---------- انواع فیلدها (هرکدام نام + تعریف را ذخیره می‌کنند) ----------
     public function id(string $name = 'id'): self
     {
         $this->columns[$name] = "`{$name}` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY";
@@ -137,7 +136,6 @@ class TableBuilder
         return $this;
     }
 
-    // ---------- متدهای کمکی زنجیره‌ای (روی آخرین ستون) ----------
     public function nullable(): self
     {
         if ($this->lastColumnName !== null) {
@@ -153,26 +151,15 @@ class TableBuilder
         }
 
         $sqlFunctions = [
-            'CURRENT_TIMESTAMP',
-            'NOW',
-            'CURRENT_DATE',
-            'CURRENT_TIME',
-            'LOCALTIMESTAMP',
-            'LOCALTIME',
-            'UTC_TIMESTAMP',
-            'UTC_DATE',
-            'UTC_TIME',
-            'SYSDATE',
-            'UUID',
-            'UUID_TO_BIN',
-            'CURRENT_USER',
-            'SESSION_USER',
-            'SYSTEM_USER'
+            'CURRENT_TIMESTAMP', 'NOW', 'CURRENT_DATE', 'CURRENT_TIME',
+            'LOCALTIMESTAMP', 'LOCALTIME', 'UTC_TIMESTAMP', 'UTC_DATE',
+            'UTC_TIME', 'SYSDATE', 'UUID', 'UUID_TO_BIN', 'CURRENT_USER',
+            'SESSION_USER', 'SYSTEM_USER'
         ];
 
         $upper = strtoupper(trim($value));
 
-        if (!is_numeric($value) and is_string($value) and !str_contains($value, '_') and !in_array($upper, $sqlFunctions)) {
+        if (!is_numeric($value) && is_string($value) && !str_contains($value, '_') && !in_array($upper, $sqlFunctions)) {
             $value = "'" . $value . "'";
         }
 
@@ -226,7 +213,6 @@ class TableBuilder
         return $this;
     }
 
-    // ---------- کلید خارجی ----------
     public function foreign(string $column): self
     {
         $this->foreignKeys[] = ['column' => $column, 'name' => "{$this->table}_{$column}_foreign"];
@@ -268,7 +254,7 @@ class TableBuilder
             $on = $foreignKey['on'];
             $onDelete = $foreignKey['onDelete'] ?? 'RESTRICT';
             $name = $foreignKey['name'] ?? "{$this->table}_{$column}_foreign";
-            $sql[] = "CONSTRAINT \`{$name}\` FOREIGN KEY (\`{$column}\`) REFERENCES \`{$on}\`(\`{$references}\`) ON DELETE {$onDelete}";
+            $sql[] = "CONSTRAINT `{$name}` FOREIGN KEY (`{$column}`) REFERENCES `{$on}`(`{$references}`) ON DELETE {$onDelete}";
         }
         return $sql;
     }
@@ -288,17 +274,15 @@ class TableBuilder
             throw new \RuntimeException('No column defined to apply constrained() on.');
         }
 
-        // اگر نام جدول مشخص نشده باشد، از نام ستون حدس می‌زنیم
         if ($table === null) {
-            $base = preg_replace('/_id$/', '', $column); // حذف _id از انتها
+            $base = preg_replace('/_id$/', '', $column);
 
-            // جمع‌بستن ساده (Pluralization)
             if (preg_match('/y$/i', $base) && !preg_match('/[aeiou]y$/i', $base)) {
-                $table = substr($base, 0, -1) . 'ies'; // category → categories
+                $table = substr($base, 0, -1) . 'ies';
             } elseif (preg_match('/(s|x|z|ch|sh)$/i', $base)) {
-                $table = $base . 'es'; // box → boxes
+                $table = $base . 'es';
             } else {
-                $table = $base . 's'; // user → users, book → books
+                $table = $base . 's';
             }
         }
 
@@ -308,12 +292,11 @@ class TableBuilder
             'references' => 'id',
             'on' => $table,
             'onDelete' => 'RESTRICT',
-        ]
+        ];
 
         return $this;
     }
 
-    // ---------- متدهای کمکی زمان ----------
     public function timestamps(bool $withDeletedAt = false): self
     {
         $this->timestamp('created_at', true)->default('CURRENT_TIMESTAMP');
@@ -330,15 +313,14 @@ class TableBuilder
         return $this;
     }
 
-    // ---------- ساخت نهایی SQL ----------
     public function build(): string
     {
         $columnsSql = implode(",\n    ", $this->columns);
         $indexesSql = !empty($this->indexes) ? ",\n    " . implode(",\n    ", $this->indexes) : '';
         $foreignSql = '';
-        $foreignKey = $this->buildForeignKey();
-        if ($foreignKey) {
-            $foreignSql = ",\n    " . $foreignKey;
+        $foreignKeys = $this->buildForeignKeys();
+        if (!empty($foreignKeys)) {
+            $foreignSql = ",\n    " . implode(",\n    ", $foreignKeys);
         }
 
         return "CREATE TABLE `{$this->table}` (\n    {$columnsSql}{$indexesSql}{$foreignSql}\n) ENGINE={$this->engine} DEFAULT CHARSET={$this->charset}";
