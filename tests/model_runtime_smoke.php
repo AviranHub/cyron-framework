@@ -14,13 +14,17 @@ $failed=[];
 foreach($models as $file){
     $relative=str_replace($root.DIRECTORY_SEPARATOR,'',$file);
     $class='App\\Models\\'.basename($file,'.php');
-    $script='define("APP_PATH", '.var_export($root.'/app/',true).'); '
-        .'require '.var_export($root.'/app/database/Model.php',true).'; '
-        .'require '.var_export($root.'/app/autoload.php',true).'; '
-        .'if (!class_exists('.var_export($class,true).')) { fwrite(STDERR, "Missing model class"); exit(1); } '
-        .'echo "OK";';
-    $command=escapeshellarg(PHP_BINARY).' -d display_errors=1 -r '.escapeshellarg($script);
+    $script="<?php\n"
+        .'define("APP_PATH", '.var_export($root.'/app',true).");\n"
+        .'require '.var_export($root.'/app/database/Model.php',true).";\n"
+        .'require '.var_export($root.'/app/autoload.php',true).";\n"
+        .'if (!class_exists('.var_export($class,true).')) { fwrite(STDERR, "Missing model class"); exit(1); }'."\n"
+        .'echo "OK";'."\n";
+    $tmp=tempnam(sys_get_temp_dir(),'cyron_model_').'.php';
+    file_put_contents($tmp,$script);
+    $command=escapeshellarg(PHP_BINARY).' -d display_errors=1 '.escapeshellarg($tmp).' 2>&1';
     exec($command,$output,$code);
+    @unlink($tmp);
     if($code!==0){
         $failed[]=[$relative,implode("\n",$output)];
     }

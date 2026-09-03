@@ -32,6 +32,8 @@ use App\Core\Storage\StorageManager;
 use App\Core\Localization\Translator;
 use App\Core\Exceptions\Handler;
 use App\Core\Plugin\PluginManager;
+use App\Core\Http\Security\ProductionGuard;
+use App\Route;
 
 $cachePath = STORAGE_PATH . '/cache/views';
 if (!is_dir($cachePath)) mkdir($cachePath, 0755, true);
@@ -65,12 +67,20 @@ Translator::init();
 Translator::setLocale('fa');
 StorageManager::setBasePath(STORAGE_PATH);
 
-$debug = vars('APP_ENV') === 'development';
+$appEnv = strtolower((string) vars('APP_ENV'));
+$appDebug = vars('APP_DEBUG');
+if ($appDebug === null) {
+    $appDebug = $appEnv === 'development';
+}
+$debug = $appEnv !== 'production' && filter_var($appDebug, FILTER_VALIDATE_BOOLEAN);
 Handler::setDebug($debug);
+ini_set('display_errors', $debug ? '1' : '0');
+ini_set('display_startup_errors', $debug ? '1' : '0');
 set_exception_handler([Handler::class, 'handle']);
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
     throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 });
+ProductionGuard::validate();
 
 Route::globalMiddleware(\App\Http\Middlewares\SecurityHeadersMiddleware::class);
 Route::globalMiddleware(\App\Http\Middlewares\CsrfMiddleware::class);

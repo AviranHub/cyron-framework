@@ -14,7 +14,7 @@ $path = APP_PATH . '/includes/';
 // بررسی وجود فایل .var
 if (!file_exists($varaible)) {
     // ایجاد فایل .var پیش‌فرض
-    $default_content = "APP_NAME=Cyron\nAPP_ENV=development\nDB_HOST=localhost\nDB_NAME=clubhub\nDB_USERNAME=root\nDB_PASSWORD=\nADMIN_EMAIL=admin@example.com\nADMIN_PASSWORD=123456";
+    $default_content = "APP_NAME=Cyron\nAPP_ENV=development\nAPP_DEBUG=true\nAPP_URL=http://localhost\nAPP_KEY=\nDB_HOST=localhost\nDB_NAME=clubhub\nDB_USERNAME=root\nDB_PASSWORD=\nADMIN_EMAIL=admin@example.com\nADMIN_PASSWORD=";
     file_put_contents($varaible, $default_content);
 }
 
@@ -46,9 +46,9 @@ foreach ($lines as $line) {
         
         // تبدیل مقادیر خالی به رشته خالی
         if (empty($define_value)) {
-            $php_text .= "define('$define_name', '');\n";
+            $php_text .= 'define(' . var_export($define_name, true) . ", '');\n";
         } else {
-            $php_text .= "define('$define_name', '$define_value');\n";
+            $php_text .= 'define(' . var_export($define_name, true) . ', ' . var_export($define_value, true) . ");\n";
         }
     }
 }
