@@ -2,8 +2,9 @@
 
 require_once APP_PATH . '/autoload.php';
 require_once APP_PATH . '/Response.php';
+require_once APP_PATH . '/Core/Env.php';
+\App\Core\Env::load(defined('BASE_PATH') ? BASE_PATH . '/.env' : dirname(__DIR__) . '/.env');
 require_once APP_PATH . '/helpers.php';
-require_once APP_PATH . '/Core/Varaibles.php';
 require_once APP_PATH . '/Libs/jdf.php';
 require_once APP_PATH . '/database/Db.php';
 require_once APP_PATH . '/database/Model.php';
@@ -31,7 +32,6 @@ use App\Core\Lady\Engine;
 use App\Core\Storage\StorageManager;
 use App\Core\Localization\Translator;
 use App\Core\Exceptions\Handler;
-use App\Core\Plugin\PluginManager;
 use App\Core\Http\Security\ProductionGuard;
 use App\Route;
 
@@ -67,7 +67,7 @@ Translator::init();
 Translator::setLocale('fa');
 StorageManager::setBasePath(STORAGE_PATH);
 
-$appEnv = strtolower((string) vars('APP_ENV'));
+$appEnv = strtolower((string) vars('APP_ENV', 'production'));
 $appDebug = vars('APP_DEBUG');
 if ($appDebug === null) {
     $appDebug = $appEnv === 'development';
