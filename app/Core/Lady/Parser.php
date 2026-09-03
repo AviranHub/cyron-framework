@@ -5,11 +5,17 @@ class Parser
 {
     public function parse(string $content): string
     {
-        // Preserve @verbatim blocks from every compiler pass.
-        $verbatim = [];
-        $content = preg_replace_callback('/@verbatim\s*(.*?)\s*@endverbatim/s', function ($matches) use (&$verbatim) {
-            $key = '__LADY_VERBATIM_' . count($verbatim) . '__';
-            $verbatim[$key] = $matches[1];
+        // Preserve code examples and explicit verbatim blocks from all compiler passes.
+        $literal = [];
+        $content = preg_replace_callback('/<pre\b[^>]*>\s*<code\b[^>]*>.*?<\/code>\s*<\/pre>/is', function ($matches) use (&$literal) {
+            $key = '__LADY_LITERAL_' . count($literal) . '__';
+            $literal[$key] = $matches[0];
+            return $key;
+        }, $content);
+
+        $content = preg_replace_callback('/@verbatim\s*(.*?)\s*@endverbatim/s', function ($matches) use (&$literal) {
+            $key = '__LADY_LITERAL_' . count($literal) . '__';
+            $literal[$key] = $matches[1];
             return $key;
         }, $content);
 
@@ -20,7 +26,7 @@ class Parser
         $content = $this->compileConditionalsAndLoops($content);
         $content = $this->compileEchos($content);
 
-        foreach ($verbatim as $key => $value) {
+        foreach ($literal as $key => $value) {
             $content = str_replace($key, $value, $content);
         }
 
