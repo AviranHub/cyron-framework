@@ -96,7 +96,7 @@ class TableBuilder
         return $this;
     }
 
-    public function enum(string $name, array $values, string $default = null): self
+    public function enum(string $name, array $values, ?string $default = null): self
     {
         $enumValues = "'" . implode("','", $values) . "'";
         $defaultStr = $default ? " DEFAULT '{$default}'" : '';
@@ -212,7 +212,7 @@ class TableBuilder
         return $this;
     }
 
-    public function index($columns, string $name = null): self
+    public function index($columns, ?string $name = null): self
     {
         if (is_array($columns)) {
             $indexName = $name ?? $this->generateIndexName($columns);
@@ -229,41 +229,48 @@ class TableBuilder
     // ---------- کلید خارجی ----------
     public function foreign(string $column): self
     {
-        $this->foreignKeys['column'] = $column;
-        $this->foreignKeys['name'] = "{$this->table}_{$column}_foreign"; // نام یکتا
+        $this->foreignKeys[] = ['column' => $column, 'name' => "{$this->table}_{$column}_foreign"];
         return $this;
     }
 
     public function references(string $column): self
     {
-        $this->foreignKeys['references'] = $column;
+        $i = array_key_last($this->foreignKeys);
+        if ($i === null) throw new \RuntimeException('No foreign key defined.');
+        $this->foreignKeys[$i]['references'] = $column;
         return $this;
     }
 
     public function on(string $table): self
     {
-        $this->foreignKeys['on'] = $table;
-        $this->foreignKeys['onDelete'] = 'RESTRICT';
+        $i = array_key_last($this->foreignKeys);
+        if ($i === null) throw new \RuntimeException('No foreign key defined.');
+        $this->foreignKeys[$i]['on'] = $table;
+        $this->foreignKeys[$i]['onDelete'] = 'RESTRICT';
         return $this;
     }
 
     public function onDelete(string $action): self
     {
-        $this->foreignKeys['onDelete'] = $action;
+        $i = array_key_last($this->foreignKeys);
+        if ($i === null) throw new \RuntimeException('No foreign key defined.');
+        $this->foreignKeys[$i]['onDelete'] = strtoupper($action);
         return $this;
     }
 
-    protected function buildForeignKey(): ?string
+    protected function buildForeignKeys(): array
     {
-        if (isset($this->foreignKeys['column'], $this->foreignKeys['references'], $this->foreignKeys['on'])) {
-            $column = $this->foreignKeys['column'];
-            $references = $this->foreignKeys['references'];
-            $on = $this->foreignKeys['on'];
-            $onDelete = $this->foreignKeys['onDelete'] ?? 'RESTRICT';
-            $name = $this->foreignKeys['name'] ?? "{$column}_foreign";
-            return "CONSTRAINT `{$name}` FOREIGN KEY (`{$column}`) REFERENCES `{$on}`(`{$references}`) ON DELETE {$onDelete}";
+        $sql = [];
+        foreach ($this->foreignKeys as $foreignKey) {
+            if (!isset($foreignKey['column'], $foreignKey['references'], $foreignKey['on'])) continue;
+            $column = $foreignKey['column'];
+            $references = $foreignKey['references'];
+            $on = $foreignKey['on'];
+            $onDelete = $foreignKey['onDelete'] ?? 'RESTRICT';
+            $name = $foreignKey['name'] ?? "{$this->table}_{$column}_foreign";
+            $sql[] = "CONSTRAINT \`{$name}\` FOREIGN KEY (\`{$column}\`) REFERENCES \`{$on}\`(\`{$references}\`) ON DELETE {$onDelete}";
         }
-        return null;
+        return $sql;
     }
 
     public function foreignId(string $name): self
@@ -295,11 +302,13 @@ class TableBuilder
             }
         }
 
-        // تنظیم اطلاعات کلید خارجی در آرایه‌ی `foreignKeys`
-        $this->foreignKeys['column'] = $column;
-        $this->foreignKeys['references'] = 'id';
-        $this->foreignKeys['on'] = $table;
-        $this->foreignKeys['onDelete'] = 'RESTRICT'; // مقدار پیش‌فرض (با متد onDelete قابل تغییر است)
+        $this->foreignKeys[] = [
+            'column' => $column,
+            'name' => "{$this->table}_{$column}_foreign",
+            'references' => 'id',
+            'on' => $table,
+            'onDelete' => 'RESTRICT',
+        ]
 
         return $this;
     }
