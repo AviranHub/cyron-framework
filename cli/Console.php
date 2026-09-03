@@ -45,6 +45,7 @@ class Console
             'sitemap:generate' => 'SitemapGenerateCommand',
 
             'dev:seed' => 'DevSeedCommand',
+            'key:generate' => 'KeyGenerateCommand',
         ];
     }
 
