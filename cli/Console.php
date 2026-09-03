@@ -27,7 +27,7 @@ class Console
             'make:command' => 'MakeCommand',
             'fake' => 'FakeCommand',
             'migrate' => 'MigrateCommand',
-            'migrate:rollback' => 'MigrateRollbackCommand',
+
             'migrate:fresh' => 'FreshCommand',
             'route:list' => 'RouteListCommand',
             'plugin:list' => 'PluginListCommand',
@@ -42,8 +42,7 @@ class Console
             'run' => 'RunCommand',
             'storage:link' => 'StorageLinkCommand',
             'sitemap:generate' => 'SitemapGenerateCommand',
-            'cache:clear' => 'CacheClearCommand',
-            'key:generate' => 'KeyGenerateCommand',
+
             'dev:seed' => 'DevSeedCommand',
         ];
     }
