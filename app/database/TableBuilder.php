@@ -266,6 +266,23 @@ class TableBuilder
         return $this;
     }
 
+    /**
+     * Add polymorphic relationship columns and an index.
+     * Example: morphs('likeable') => likeable_type + likeable_id.
+     */
+    public function morphs(string $name): self
+    {
+        $type = "{$name}_type";
+        $id = "{$name}_id";
+
+        $this->columns[$type] = "`{$type}` VARCHAR(255) NOT NULL";
+        $this->columns[$id] = "`{$id}` BIGINT UNSIGNED NOT NULL";
+        $this->indexes[] = "KEY `{$type}_{$id}_index` (`{$type}`, `{$id}`)";
+        $this->lastColumnName = $id;
+
+        return $this;
+    }
+
     public function constrained(?string $table = null): self
     {
         $column = $this->lastColumnName;
