@@ -26,6 +26,7 @@ require_once APP_PATH . '/Core/Localization/Translator.php';
 require_once APP_PATH . '/Core/Authorization/Gate.php';
 require_once APP_PATH . '/Core/Http/Security/ProductionGuard.php';
 
+use App\Core\Env;
 use App\Core\Lady\Parser;
 use App\Core\Lady\Compiler;
 use App\Core\Lady\Engine;
@@ -67,8 +68,8 @@ Translator::init();
 Translator::setLocale('fa');
 StorageManager::setBasePath(STORAGE_PATH);
 
-$appEnv = strtolower((string) vars('APP_ENV', 'production'));
-$appDebug = vars('APP_DEBUG');
+$appEnv = strtolower((string) Env::get('APP_ENV', 'production'));
+$appDebug = Env::get('APP_DEBUG');
 if ($appDebug === null) {
     $appDebug = $appEnv === 'development';
 }
