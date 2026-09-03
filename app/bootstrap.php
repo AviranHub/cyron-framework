@@ -87,3 +87,4 @@ Route::globalMiddleware(\App\Http\Middlewares\SecurityHeadersMiddleware::class);
 Route::globalMiddleware(\App\Http\Middlewares\CsrfMiddleware::class);
 
 require_once ROUTES_PATH . '/web.php';
+require_once ROUTES_PATH . '/docs.php';
