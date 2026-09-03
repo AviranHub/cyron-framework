@@ -27,6 +27,7 @@ class Console
             'make:command' => 'MakeCommand',
             'fake' => 'FakeCommand',
             'migrate' => 'MigrateCommand',
+            'migrate:rollback' => 'MigrateRollbackCommand',
 
             'migrate:fresh' => 'FreshCommand',
             'route:list' => 'RouteListCommand',
