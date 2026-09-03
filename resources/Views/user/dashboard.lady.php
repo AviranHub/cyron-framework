@@ -1,38 +1,10 @@
 @extends('user.layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">داشبورد کاربری</h1>
-    
-    @if(session()->get('success'))
-        <div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session()->get('success') }}</div>
-    @endif
-    
-    <div class="bg-white rounded shadow p-6">
-        <div class="mb-4">
-            <strong>نام:</strong> {{ $user->name }}
-        </div>
-        <div class="mb-4">
-            <strong>ایمیل:</strong> {{ $user->email }}
-        </div>
-        <div class="mb-4">
-            <strong>تلفن:</strong> {{ $user->phone ?? 'ثبت نشده' }}
-        </div>
-        <div class="mb-4">
-            <strong>نقش:</strong> {{ $user->role }}
-        </div>
-        <div class="mb-4">
-            <strong>عضویت از:</strong> {{ $user->created_at }}
-        </div>
-        
-        <div class="mt-6 flex gap-4">
-            <a href="{{ route('user.profile.edit') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">ویرایش پروفایل</a>
-            <a href="{{ route('user.change-password') }}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">تغییر رمز عبور</a>
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-                @csrf
-                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">خروج</button>
-            </form>
-        </div>
-    </div>
+<div class="user-dashboard">
+    @if(session()->get('success'))<div class="user-alert">{{ session()->get('success') }}</div>@endif
+    <section class="user-welcome"><div><span class="user-eyebrow">کتابخانه شخصی شما</span><h1>سلام {{ $user->name ?? 'دوست کتاب‌خوان' }}، آماده‌ای ادامه بدی؟</h1><p>حساب و مسیر مطالعه‌ات را از یکجا مدیریت کن.</p></div><div class="welcome-mark"><i class="fas fa-book-open"></i></div></section>
+    <section class="user-stat-grid"><div class="user-stat"><i class="fas fa-book-open"></i><span>کتاب‌های کتابخانه</span><strong>۰</strong><small>هنوز کتابی اضافه نشده</small></div><div class="user-stat"><i class="fas fa-bookmark"></i><span>قفسه‌های من</span><strong>۰</strong><small>قفسه‌ای ساخته نشده</small></div><div class="user-stat"><i class="fas fa-circle-check"></i><span>وضعیت حساب</span><strong class="user-status-text">فعال</strong><small>حساب شما در وضعیت خوبی است</small></div></section>
+    <section class="user-panels"><div class="user-panel"><div class="user-panel-head"><div><span class="user-eyebrow">اطلاعات حساب</span><h2>پروفایل من</h2></div><a href="{{ route('user.profile.edit') }}">ویرایش <i class="fas fa-arrow-left"></i></a></div><div class="profile-summary"><div class="profile-avatar">{{ strtoupper(substr($user->name ?? 'ک', 0, 1)) }}</div><div><strong>{{ $user->name }}</strong><span>{{ $user->email }}</span><small>عضویت از {{ $user->created_at }}</small></div></div><div class="profile-fields"><div><small>شماره تلفن</small><strong>{{ $user->phone ?? 'ثبت نشده' }}</strong></div><div><small>نقش حساب</small><strong>{{ $user->role ?? 'کاربر' }}</strong></div></div></div><div class="user-panel next-panel"><div class="user-panel-head"><div><span class="user-eyebrow">شروع سریع</span><h2>قدم بعدی</h2></div></div><a class="user-action" href="{{ route('home') }}"><i class="fas fa-compass"></i><span><strong>پیدا کردن کتاب تازه</strong><small>به کتابخانه‌ات چیزی اضافه کن</small></span><i class="fas fa-chevron-left"></i></a><a class="user-action" href="{{ route('user.change-password') }}"><i class="fas fa-shield-halved"></i><span><strong>امنیت حساب</strong><small>رمز عبورت را مدیریت کن</small></span><i class="fas fa-chevron-left"></i></a></div></section>
 </div>
 @endsection

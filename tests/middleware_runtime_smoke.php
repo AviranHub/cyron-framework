@@ -4,7 +4,7 @@ $root=dirname(__DIR__);
 $script=<<<'PHP'
 define('BASE_PATH', __DIR__);
 define('APP_PATH', BASE_PATH.'/app');
-require APP_PATH.'/Core/Varaibles.php';
+require APP_PATH.'/Core/Env.php';
 require APP_PATH.'/autoload.php';
 require APP_PATH.'/router.php';
 use App\Route;

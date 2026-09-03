@@ -19,13 +19,14 @@
             @php
                 $parts = explode('|', $definition);
                 $type = $parts[0];
+                $baseType = explode(':', $type, 2)[0];
                 $options = [];
-                $isSelect = ($type === 'select');
+                $isSelect = ($baseType === 'select');
                 if ($isSelect) {
                     $selectOptions = explode(':', $definition, 2);
                     $options = explode(',', $selectOptions[1] ?? '');
                 }
-                $isFile = ($type === 'file');
+                $isFile = ($baseType === 'file');
                 $value = $item->{$field} ?? '';
             @endphp
 
@@ -34,11 +35,11 @@
                     {{ ucfirst(str_replace('_', ' ', $field)) }}
                 </label>
 
-                @if($type === 'textarea')
+                @if($baseType === 'textarea')
                     <textarea name="{{ $field }}" id="{{ $field }}" rows="4"
                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ old($field, $value) }}</textarea>
 
-                @elseif($type === 'select')
+                @elseif($baseType === 'select')
                     <select name="{{ $field }}" id="{{ $field }}"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         @foreach($options as $opt)
@@ -48,7 +49,10 @@
                         @endforeach
                     </select>
 
-                @elseif($type === 'file')
+                @elseif($baseType === 'checkbox')
+                    <input type="hidden" name="{{ $field }}" value="0"><label><input type="checkbox" name="{{ $field }}" id="{{ $field }}" value="1" {{ old($field, $value) ? 'checked' : '' }}> فعال</label>
+
+                @elseif($baseType === 'file')
                     @if($value)
                         <div class="mb-2">
                             <img src="{{ storage_url($value) }}" class="h-20 w-20 object-cover rounded">
@@ -57,13 +61,13 @@
                     <input type="file" name="{{ $field }}" id="{{ $field }}"
                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
 
-                @elseif($type === 'password')
+                @elseif($baseType === 'password')
                     <input type="password" name="{{ $field }}" id="{{ $field }}"
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                     <p class="text-xs text-gray-500 mt-1">برای تغییر رمز عبور، مقدار جدید وارد کنید. در غیر این صورت خالی بگذارید.</p>
 
                 @else
-                    <input type="{{ $type === 'number' ? 'number' : 'text' }}" name="{{ $field }}" id="{{ $field }}"
+                    <input type="{{ $baseType === 'number' ? 'number' : ($baseType === 'email' ? 'email' : 'text') }}" name="{{ $field }}" id="{{ $field }}"
                            value="{{ old($field, $value) }}"
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 @endif

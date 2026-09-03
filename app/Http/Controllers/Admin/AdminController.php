@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controller;
 use App\Request;
-use App\Database\Model;
+use App\Audit\Audit;
 
 class AdminController extends Controller
 {
@@ -58,6 +58,10 @@ class AdminController extends Controller
             'color' => 'green',
         ];
 
+        $recentUsers = \App\Models\User::query()->orderBy('created_at', 'desc')->limit(6)->get();
+        $recentActivities = \App\Models\UserActivity::query()->orderBy('created_at', 'desc')->limit(6)->get();
+        $todayActivities = \App\Models\UserActivity::query()->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')->count();
+
         // $stats['today_orders'] = [
         //     'label' => 'سفارشات امروز',
         //     'icon' => 'shopping-cart',
@@ -67,6 +71,10 @@ class AdminController extends Controller
 
         return view('admin.dashboard', [
             'stats' => $stats,
+            'adminModules' => $configs,
+            'recentUsers' => $recentUsers,
+            'recentActivities' => $recentActivities,
+            'todayActivities' => $todayActivities,
             'total_models' => count($stats),
         ]);
     }
@@ -221,6 +229,7 @@ class AdminController extends Controller
             if ($type === 'email') $ruleStr .= 'email|';
             if ($type === 'number') $ruleStr .= 'integer|';
             if ($type === 'textarea' || $type === 'text') $ruleStr .= 'string|';
+            if (in_array('confirmed', $parts, true)) $ruleStr .= 'confirmed|';
             if (in_array('unique', $parts)) {
                 $ruleStr .= "unique:{$this->model::getTable()},{$field}";
                 if ($id) $ruleStr .= ",{$id}";

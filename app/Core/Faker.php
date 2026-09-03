@@ -59,6 +59,11 @@ class Faker
     {
         $type = strtolower($type);
 
+        // بولی
+        if ($type === 'tinyint(1)') {
+            return rand(0, 1);
+        }
+
         // تاریخ و زمان
         if (strpos($type, 'timestamp') !== false || strpos($type, 'datetime') !== false) {
             return date('Y-m-d H:i:s', rand(strtotime('-1 year'), time()));
@@ -70,10 +75,6 @@ class Faker
         // اعشاری
         if (strpos($type, 'decimal') !== false || strpos($type, 'float') !== false) {
             return rand(0, 10000) / 100;
-        }
-        // بولی
-        if (strpos($type, 'tinyint') !== false && $type == 'tinyint(1)') {
-            return rand(0, 1);
         }
         // متن بلند
         if (strpos($type, 'text') !== false || strpos($type, 'longtext') !== false) {

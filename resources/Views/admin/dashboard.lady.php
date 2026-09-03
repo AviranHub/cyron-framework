@@ -1,91 +1,29 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="p-6">
-    <h1 class="text-2xl font-semibold text-gray-800 mb-6">داشبورد مدیریت</h1>
-    
-    <!-- کارت‌های آماری -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+<div class="admin-dashboard">
+    <section class="dashboard-hero">
+        <div><span class="eyebrow">CYRON / CONTROL CENTER</span><h1>سلام، مدیر سیستم</h1><p>نمایی زنده از وضعیت محتوا، کاربران و فعالیت‌های امروز شما.</p></div>
+        <div class="system-status"><span></span> سیستم فعال <small>{{ date('Y/m/d') }}</small></div>
+    </section>
+
+    <section class="kpi-grid" aria-label="آمار اصلی">
         @foreach($stats as $key => $stat)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
-                <div class="p-5">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-gray-500 uppercase tracking-wide">{{ $stat['label'] }}</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-2">{{ number_format($stat['count']) }}</p>
-                        </div>
-                        <div class="rounded-full p-3 bg-{{ $stat['color'] }}-100">
-                            <i class="fas fa-{{ $stat['icon'] }} text-{{ $stat['color'] }}-600 text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 px-5 py-3">
-                    <a href="{{ $stat['route'] }}" class="text-sm text-{{ $stat['color'] }}-600 hover:text-{{ $stat['color'] }}-800 flex items-center justify-between">
-                        <span>مشاهده جزئیات</span>
-                        <i class="fas fa-chevron-left text-xs"></i>
-                    </a>
-                </div>
-            </div>
+            @if(!is_array($stat) || !isset($stat['label'], $stat['count'])) @continue @endif
+            <a class="kpi-card kpi-{{ $stat['color'] ?? 'blue' }}" href="{{ $stat['route'] ?? route('admin.dashboard') }}"><div class="kpi-top"><span>{{ $stat['label'] }}</span><i class="fas fa-{{ $stat['icon'] ?? 'chart-line' }}"></i></div><strong>{{ number_format($stat['count']) }}</strong><div class="kpi-foot"><span>مشاهده بخش</span><b>←</b></div></a>
         @endforeach
-    </div>
+        <div class="kpi-card kpi-cyan"><div class="kpi-top"><span>فعالیت امروز</span><i class="fas fa-bolt"></i></div><strong>{{ number_format($todayActivities ?? 0) }}</strong><div class="kpi-foot"><span>رویداد ثبت‌شده</span><b>●</b></div></div>
+    </section>
 
-    <!-- بخش فعالیت‌های اخیر (اختیاری) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- آخرین کاربران ثبت‌نام شده -->
-        <div class="bg-white rounded-lg shadow-md">
-            <div class="border-b px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-800">آخرین کاربران</h2>
-            </div>
-            <div class="p-4">
-                @php
-                    $recentUsers = \App\Models\User::orderBy('created_at', 'desc')->limit(5)->get();
-                @endphp
-                @if($recentUsers->count())
-                    <ul class="divide-y divide-gray-200">
-                        @foreach($recentUsers as $user)
-                            <li class="py-3 flex items-center justify-between">
-                                <div>
-                                    <p class="font-medium text-gray-800">{{ $user->name }}</p>
-                                    <p class="text-sm text-gray-500">{{ $user->email }}</p>
-                                </div>
-                                {{-- <span class="text-xs text-gray-400">{{ jdate('Y/m/d',$user->created_at) }}</span> --}}
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-gray-500 text-center py-4">کاربری یافت نشد</p>
-                @endif
-            </div>
+    <section class="dashboard-grid">
+        <div class="dashboard-panel activity-panel"><div class="panel-heading"><div><span class="eyebrow">LIVE FEED</span><h2>آخرین فعالیت‌ها</h2></div><a href="{{ route('admin.dashboard') }}">همه فعالیت‌ها</a></div>
+            @if(isset($recentActivities) && $recentActivities->count())<div class="activity-list">@foreach($recentActivities as $activity)<div class="activity-row"><span class="activity-dot"></span><div><strong>{{ $activity->action }}</strong><small>{{ $activity->user->name ?? 'کاربر ناشناس' }}</small></div><time>{{ $activity->created_at }}</time></div>@endforeach</div>@else<div class="empty-state"><i class="fas fa-wave-square"></i><p>هنوز فعالیتی ثبت نشده است.</p></div>@endif
         </div>
+        <div class="dashboard-panel users-panel"><div class="panel-heading"><div><span class="eyebrow">DIRECTORY</span><h2>کاربران جدید</h2></div><a href="{{ route('admin.users.index') }}">مدیریت کاربران</a></div>
+            @if(isset($recentUsers) && $recentUsers->count())<div class="user-list">@foreach($recentUsers as $user)<div class="user-row"><span class="user-avatar">{{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}</span><div><strong>{{ $user->name }}</strong><small>{{ $user->email }}</small></div><i class="fas fa-chevron-left"></i></div>@endforeach</div>@else<div class="empty-state"><i class="fas fa-users"></i><p>کاربری یافت نشد.</p></div>@endif
+        </div>
+    </section>
 
-        <!-- آخرین سفارشات یا فعالیت‌های اخیر -->
-        <div class="bg-white rounded-lg shadow-md">
-            <div class="border-b px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-800">آخرین فعالیت‌ها</h2>
-            </div>
-            <div class="p-4">
-                @php
-                    $recentActivities = \App\Models\UserActivity::orderBy('created_at', 'desc')->limit(5)->get();
-                @endphp
-                @if($recentActivities->count())
-                    <ul class="divide-y divide-gray-200">
-                        @foreach($recentActivities as $activity)
-                            <li class="py-3">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium text-gray-800">{{ $activity->action }}</p>
-                                        <p class="text-sm text-gray-500">{{ $activity->user->name ?? 'کاربر ناشناس' }}</p>
-                                    </div>
-                                    <span class="text-xs text-gray-400">{{ jdate($activity->created_at)->format('H:i') }}</span>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                @else
-                    <p class="text-gray-500 text-center py-4">فعالیتی یافت نشد</p>
-                @endif
-            </div>
-        </div>
-    </div>
+    <section class="quick-actions"><div><span class="eyebrow">QUICK ACTIONS</span><h2>دسترسی سریع</h2></div><div class="action-links"><a href="{{ route('admin.users.create') }}"><i class="fas fa-user-plus"></i><span>کاربر جدید</span></a><a href="{{ route('admin.books.create') }}"><i class="fas fa-book-medical"></i><span>افزودن کتاب</span></a><a href="{{ route('admin.roles.index') }}"><i class="fas fa-shield-alt"></i><span>نقش‌ها و دسترسی‌ها</span></a></div></section>
 </div>
 @endsection

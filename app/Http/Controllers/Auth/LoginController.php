@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controller;
 use App\Auth\LoginManager;
+use App\Models\User;
 use App\Request;
 
 class LoginController extends Controller
@@ -12,7 +13,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $result=LoginManager::attempt((string)$request->input('login'),(string)$request->input('password'));
-        if(($result['status']??'')==='authenticated') return redirect()->route('user.dashboard');
+        if(($result['status']??'')==='authenticated') return $this->redirectAfterLogin($result['user_id'] ?? null);
         if(($result['status']??'')==='two_factor_required') return redirect()->route('login.two-factor');
         $message=($result['status']??'')==='rate_limited'?'تعداد تلاش‌ها زیاد است. کمی بعد دوباره تلاش کنید.':'اطلاعات ورود صحیح نیست';
         return redirect()->back()->with('error',$message)->withInput();
@@ -23,9 +24,17 @@ class LoginController extends Controller
     public function verifyTwoFactor(Request $request)
     {
         $result=LoginManager::completeTwoFactor((string)$request->input('code'));
-        if(($result['status']??'')==='authenticated') return redirect()->route('user.dashboard');
+        if(($result['status']??'')==='authenticated') return $this->redirectAfterLogin($result['user_id'] ?? null);
         return redirect()->back()->with('error','کد تایید نامعتبر یا منقضی شده است');
     }
 
     public function logout(){ LoginManager::logout(); return redirect()->route('login'); }
+
+    private function redirectAfterLogin($userId)
+    {
+        $user = $userId ? User::find($userId) : null;
+        return $user && in_array((string)($user->role ?? ''), ['admin', 'superadmin'], true)
+            ? redirect()->route('admin.dashboard')
+            : redirect()->route('user.dashboard');
+    }
 }

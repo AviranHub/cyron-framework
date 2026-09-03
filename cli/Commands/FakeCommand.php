@@ -30,7 +30,10 @@ class FakeCommand
         }
 
         $columns = $modelClass::getTableColumns();
-        $fillable = $modelClass::$fillable ?? [];
+        $reflection = new ReflectionClass($modelClass);
+        $fillableProperty = $reflection->getProperty('fillable');
+        $fillableProperty->setAccessible(true);
+        $fillable = $fillableProperty->getValue();
 
         echo "Generating {$count} fake records for {$modelName}...\n";
 
@@ -42,9 +45,17 @@ class FakeCommand
                 if (in_array($field, ['id', 'created_at', 'updated_at', 'deleted_at'])) continue;
                 // اگر مدل فیلدهای fillable دارد، فقط آنها را پر کن
                 if (!empty($fillable) && !in_array($field, $fillable)) continue;
+
+                if (str_ends_with($field, '_id') && ($col['Null'] ?? 'NO') === 'YES') {
+                    $data[$field] = null;
+                    continue;
+                }
                 
                 $type = $col['Type'];
                 $data[$field] = \App\Core\Faker::typeValue($type, $field);
+                if ($field === 'slug') {
+                    $data[$field] .= '-' . bin2hex(random_bytes(3));
+                }
             }
             $modelClass::create($data);
         }

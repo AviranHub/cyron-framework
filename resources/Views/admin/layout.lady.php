@@ -7,6 +7,11 @@
     <title>پنل مدیریت | </title>
     <link rel="stylesheet" href="/assets/css/all.css">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="/assets/admin-modern.css">
+    <link rel="stylesheet" href="/assets/admin-dashboard.css?v=2">
+    <link rel="stylesheet" href="/assets/admin-reference.css?v=1">
+    <link rel="stylesheet" href="/assets/admin-polish.css?v=1">
+    <link rel="stylesheet" href="/assets/admin-forms.css?v=1">
     <style>
         /* اسکرول اختصاصی برای نوار کناری */
         .sidebar {
@@ -59,15 +64,16 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans admin-reference theme-green">
 
 <div class="flex min-h-screen relative">
     <!-- Sidebar -->
     <aside class="sidebar bg-zinc-800 text-white flex flex-col shadow-xl" id="sidebar">
         <!-- لوگو/عنوان -->
         <div class="text-center py-6 border-b border-zinc-700">
-            <h2 class="text-xl font-bold tracking-wide">پنل مدیریت</h2>
-            <p class="text-xs text-zinc-400 mt-1">Cyron Framework</p>
+            <div class="admin-avatar">م</div>
+            <h2 class="text-xl font-bold tracking-wide">مرکز مدیریت</h2>
+            <p class="text-xs text-zinc-400 mt-1">کلبه کتاب / فضای ادمین</p>
         </div>
 
         <!-- منو (پویا از روی کانفیگ) -->
@@ -87,7 +93,7 @@
                     </a>
                 </li>
 
-                <!-- حلقه روی مدل‌های کانفیگ -->
+                <li class="admin-nav-label">مدیریت محتوا</li>
                 @foreach($adminMenus as $key => $menu)
                     @if(in_array($key, $excludeFromMenu)) @continue @endif
                     @if(!isset($menu['model']) || !$menu['model']) @continue @endif
@@ -100,6 +106,9 @@
                         </a>
                     </li>
                 @endforeach
+
+                <li class="admin-nav-label admin-nav-label-spaced">امنیت و سیستم</li>
+                <li><a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-chart-line w-5 text-center"></i><span>نمای کلی سیستم</span></a></li>
 
                 <li class="pt-4 mt-2 border-t border-zinc-700">
                     <!-- خروج -->
@@ -126,13 +135,13 @@
 
     <!-- محتوای اصلی -->
     <main class="flex-1 p-4 md:p-6 overflow-x-auto">
-        <div class="md:hidden mb-4 flex justify-between items-center">
-            <button id="menuBtn" class="bg-indigo-600 text-white p-2 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">
-                <i class="fas fa-bars"></i>
-            </button>
-            <span class="text-sm text-gray-500">پنل مدیریت</span>
+        <header class="admin-topbar">
+            <div><h1>داشبورد</h1><span>مرکز کنترل مدیریت</span></div>
+            <div class="admin-topbar-actions"><button class="admin-icon-btn" type="button" title="جستجو"><i class="fas fa-search"></i></button><button class="admin-icon-btn" type="button" title="تغییر حالت" onclick="document.body.classList.toggle('theme-dark')"><i class="fas fa-moon"></i></button><form action="{{ route('logout') }}" method="post"><input type="hidden" name="_token" value="{{ csrf_token() }}"><button class="admin-icon-btn admin-logout" type="submit" title="خروج"><i class="fas fa-right-from-bracket"></i></button></form><button id="menuBtn" class="admin-icon-btn mobile-menu" type="button" title="منو"><i class="fas fa-bars"></i></button></div>
+        </header>
+        <div class="content">
+            @yield('content')
         </div>
-        @yield('content')
     </main>
 </div>
 

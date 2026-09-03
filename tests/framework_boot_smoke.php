@@ -9,7 +9,7 @@ define('PUBLIC_PATH', BASE_PATH.'/public');
 define('RESOURCES_PATH', BASE_PATH.'/resources');
 define('ROUTES_PATH', BASE_PATH.'/routes');
 define('STORAGE_PATH', BASE_PATH.'/storage');
-require APP_PATH.'/Core/Varaibles.php';
+require APP_PATH.'/Core/Env.php';
 require APP_PATH.'/database/Model.php';
 require APP_PATH.'/autoload.php';
 echo "BOOT_OK";

@@ -10,17 +10,22 @@
 - PHP 8.2 یا بالاتر
 - MySQL / MariaDB
 - وب‌سرور Apache (با فعال بودن mod_rewrite)
+- Composer 2.x
 
 ### مراحل نصب
 1. فایل‌های فریمورک را در پوشه `htdocs` کپی کنید.
-2. فایل `.env` را ایجاد کنید (یا از `.env.example`) و اطلاعات دیتابیس را تنظیم کنید:
+2. وابستگی‌ها و autoload استاندارد را نصب کنید:
+    ```bash
+    composer install --no-dev --optimize-autoloader
+    ```
+3. فایل `.env` را ایجاد کنید (یا از `.env.example`) و اطلاعات دیتابیس را تنظیم کنید:
    ```ini
    DB_USERNAME=root
    DB_PASSWORD=
    DB_NAME=my_database
    ```
-3. آپاچی را ریستارت کنید.
-4. با اجرای `php zeno migrate` جداول را ایجاد کنید.
+4. آپاچی را ریستارت کنید.
+5. با اجرای `php zeno migrate` جداول را ایجاد کنید.
 
 ---
 

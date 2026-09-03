@@ -1,5 +1,9 @@
 <?php
 
+$composerAutoload = BASE_PATH . '/vendor/autoload.php';
+if (is_file($composerAutoload)) {
+    require_once $composerAutoload;
+}
 require_once APP_PATH . '/autoload.php';
 require_once APP_PATH . '/Response.php';
 require_once APP_PATH . '/Core/Env.php';

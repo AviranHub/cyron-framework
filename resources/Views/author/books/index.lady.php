@@ -1,0 +1,4 @@
+@extends('author.layouts.app')
+@section('content')
+<div class="author-dashboard"><section class="author-page-head"><div><span class="author-eyebrow">YOUR CATALOG</span><h1>آثار من</h1><p>فهرست کتاب‌هایی که در کلبه کتاب منتشر می‌کنی.</p></div><button class="author-primary" type="button" disabled><i class="fas fa-plus"></i> افزودن اثر <small>به‌زودی</small></button></section><div class="author-panel author-table-panel">@if($books->items()->count())<div class="author-book-list">@foreach($books as $book)<div class="author-book"><span class="book-cover"><i class="fas fa-book"></i></span><span><strong>{{ $book->title }}</strong><small>{{ $book->author_name ?? 'نویسنده ثبت نشده' }} · {{ $book->status ?? 'بدون وضعیت' }}</small></span><b>{{ $book->created_at }}</b></div>@endforeach</div>@else<div class="author-empty"><i class="fas fa-box-open"></i><p>اثری برای نمایش وجود ندارد.</p></div>@endif</div></div>
+@endsection

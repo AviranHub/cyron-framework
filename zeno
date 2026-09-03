@@ -8,6 +8,9 @@ define('RESOURCES_PATH', BASE_PATH . '/resources');
 define('ROUTES_PATH', BASE_PATH . '/routes');
 define('STORAGE_PATH', BASE_PATH . '/storage');
 
+if (is_file(BASE_PATH . '/vendor/autoload.php')) {
+    require_once BASE_PATH . '/vendor/autoload.php';
+}
 require_once APP_PATH . '/Core/Env.php';
 \App\Core\Env::load(BASE_PATH . '/.env');
 require_once APP_PATH . '/Libs/jdf.php';

@@ -8,8 +8,13 @@ define('RESOURCES_PATH', BASE_PATH . '/resources');
 define('ROUTES_PATH', BASE_PATH . '/routes');
 define('STORAGE_PATH', BASE_PATH . '/storage');
 
-// کتابخانه‌ها
-require_once APP_PATH . '/Core/Varaibles.php';
+// Composer is the primary autoloader; keep the legacy loader as a fallback.
+$composerAutoload = BASE_PATH . '/vendor/autoload.php';
+if (is_file($composerAutoload)) {
+    require_once $composerAutoload;
+}
+require_once APP_PATH . '/Core/Env.php';
+\App\Core\Env::load(BASE_PATH . '/.env');
 require_once APP_PATH . '/Libs/jdf.php';
 // اصلاح مسیرها برای پروژه شما - بدون نیاز به vendor/autoload.php
 // The legacy autoloader recursively loads application models, so their base class

@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($items['data'] as $item)
+                    @foreach($items->items() as $item)
                     <tr>
                         @foreach($config['columns'] as $col)
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->{$col} }}</td>
@@ -41,7 +41,7 @@
         </div>
         <!-- Pagination -->
         <div class="mt-6">
-            {!! paginate_links($items) !!}
+            {!! $items->links() !!}
         </div>
     </div>
 </div>
