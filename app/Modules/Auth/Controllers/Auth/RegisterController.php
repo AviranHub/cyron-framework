@@ -3,8 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controller;
 use App\Models\User;
-use App\Request;
-use App\Core\Authentication\Auth;
+use Cyron\Http\Request;
+use Cyron\Authentication\Auth;
 
 class RegisterController extends Controller
 {

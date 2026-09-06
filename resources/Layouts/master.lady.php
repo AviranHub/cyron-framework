@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords"
-        content="کلبه کتاب,دنیای کتاب و رمان و کتاب صوتی,برنامه نویسی,programming,طراحی سایت,web design,تیم,team,">
-    <meta name="description" content="کلبه کتاب: بزرگترین مرجع دانلود و مطالعه کتاب‌های الکترونیک و رمان‌های فارسی. با هزاران کتاب رایگان و پرفروش در ژانرهای مختلف.">
+    <meta name="keywords" content="{{ $pageKeywords ?? 'کلبه کتاب, کتاب الکترونیکی, کتاب صوتی, رمان فارسی' }}">
+    <meta name="description" content="{{ $pageDescription ?? 'کلبه کتاب؛ مرجع کشف و مطالعه کتاب‌های الکترونیکی، صوتی و رمان‌های فارسی.' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $pageTitle ?? 'کلبه کتاب | دنیای کتاب و رمان و کتاب صوتی' }}</title>
@@ -43,15 +42,17 @@
     {{-- <script src="/assets/js/scipt.js" defer></script> --}}
 </head>
 
-<body class="bg-gradient-to-bl from-zinc-50 to-lime-50 dark:bg-gradient-to-br dark:from-zinc-700 dark:via-zinc-800 dark:to-zinc-950">
+<body class="bg-stone-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
 
     @include('layouts.nav')
 
-    <main class="w-full mt-12 md:mt-16">
+    <main class="w-full mt-14 md:mt-18">
         @yield('content')
     </main>
 
     @include('layouts.footer')
+
+    <?= view('components.support-widget') ?>
 
 
     <script>

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../app/Core/Http/Security/ProductionGuard.php';
-require_once __DIR__.'/../app/Core/Validation/Rule.php';
-require_once __DIR__.'/../app/Core/Validation/Rules/Unique.php';
-require_once __DIR__.'/../app/Core/Validation/Rules/Exists.php';
+require_once __DIR__.'/../src/Cyron/Http/Security/ProductionGuard.php';
+require_once __DIR__.'/../src/Cyron/Validation/Rule.php';
+require_once __DIR__.'/../src/Cyron/Validation/Rules/Unique.php';
+require_once __DIR__.'/../src/Cyron/Validation/Rules/Exists.php';
 
-use App\Core\Http\Security\ProductionGuard;
-use App\Core\Validation\Rules\Unique;
-use App\Core\Validation\Rules\Exists;
+use Cyron\Http\Security\ProductionGuard;
+use Cyron\Validation\Rules\Unique;
+use Cyron\Validation\Rules\Exists;
 
 $failed = 0;
 function expectTrue(bool $condition, string $name): void

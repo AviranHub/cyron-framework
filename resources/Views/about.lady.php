@@ -2,9 +2,9 @@
 
 @section('content')
     {{-- ===== هدر بزرگ با گرادیان و افکت شیشه‌ای ===== --}}
-    <section class="relative overflow-hidden bg-gradient-to-br from-brand-green-900 via-brand-green-700 to-light-green-500 pt-20 pb-28">
+    <section class="relative overflow-hidden border-b border-emerald-100 bg-emerald-50 pb-28 pt-20">
         <!-- دایره‌های محو برای عمق -->
-        <div class="absolute inset-0 opacity-20">
+        <div class="absolute inset-0 hidden opacity-20">
             <div class="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
             <div class="absolute bottom-0 right-0 w-96 h-96 bg-light-green-300 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
             <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-brand-green-300 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>

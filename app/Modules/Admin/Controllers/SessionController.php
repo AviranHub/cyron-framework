@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Admin;
-use App\Http\Controller;use App\Models\AuthSession;use App\Auth\SessionRegistry;use App\Audit\Audit;
+use App\Http\Controller;use App\Models\AuthSession;use Cyron\Authentication\SessionRegistry;use Cyron\Audit;
 class SessionController extends Controller{
  public function index(){
   $query=AuthSession::query()->where('revoked_at','=',null);

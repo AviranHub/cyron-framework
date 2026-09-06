@@ -17,7 +17,7 @@ define('STORAGE_PATH', BASE_PATH . '/storage');
 require_once APP_PATH . '/bootstrap.php';
 
 // اجرای روت‌ها
-use App\Route;
+use Cyron\Routing\Route;
 Route::run();
 
 // گزارش خطاها (فقط در محیط توسعه)

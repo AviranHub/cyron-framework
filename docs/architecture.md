@@ -4,9 +4,9 @@ Cyron currently ships as a project foundation with the Kolbe Ketab application i
 
 ## Framework foundation
 
-The reusable foundation lives primarily under `app/Core`, `app/Http`, `app/database`, `app/Request.php`, `app/Response.php`, and the routing/view infrastructure. Composer maps the current `App\\` namespace to `app/` so existing applications remain compatible.
+The reusable foundation lives under `src/Cyron`, while application code lives under `app`. Application migrations live under the root `database/Migrations` directory. Composer maps `Cyron\\` to `src/Cyron/` and `App\\` to `app/` for application compatibility.
 
-The extracted framework classes currently include `Cyron\\Support\\Env`, `Cyron\\Database\\SqlGuard`, `Cyron\\Database\\Collection`, `Cyron\\Database\\Paginator`, and `Cyron\\Database\\TableBuilder`. Their original `App\\` classes remain compatibility wrappers while the remaining foundation is migrated incrementally.
+The extracted framework classes currently include `Cyron\\Support\\Env`, `Cyron\\Database\\SqlGuard`, `Cyron\\Database\\Db`, `Cyron\\Database\\Collection`, `Cyron\\Database\\Paginator`, `Cyron\\Database\\TableBuilder`, `Cyron\\Database\\Migration`, `Cyron\\Database\\Builder`, `Cyron\\Database\\Model`, `Cyron\\Database\\Relation`, the `Cyron\\Database\\Relations` implementations, `Cyron\\Http\\Response`, `Cyron\\Http\\Request` with `Cyron\\Http\\File`, `Cyron\\Http\\Middleware`, `Cyron\\Http\\Controller`, and `Cyron\\Routing\\Route`. Their original `App\\` classes remain compatibility wrappers while the remaining foundation is migrated incrementally. Composer is preferred by the legacy loader whenever it is available.
 
 ## Kolbe Ketab application
 
@@ -16,8 +16,10 @@ Website-specific behavior belongs in `routes/`, `resources/Views/`, `app/Models`
 
 - `public/index.php` boots the web application.
 - `zeno` is the supported CLI entrypoint.
-- `zeno.php` is retained as a compatibility entrypoint for older scripts.
+- `zeno` is the supported CLI entrypoint.
 - `composer install` creates the primary PSR-4 autoloader; the legacy loader remains temporarily for backward compatibility.
+- `composer test` runs the complete PHP smoke/regression suite.
+- `composer validate-project` validates the project manifest.
 
 ## Extraction path
 

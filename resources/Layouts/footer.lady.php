@@ -1,4 +1,4 @@
-<footer class="bg-gradient-to-r from-zinc-900 to-zinc-800 text-white pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+<footer class="bg-emerald-950 px-4 pb-8 pt-16 text-white sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             <!-- درباره کلبه کتاب -->
@@ -64,7 +64,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('forum.index') }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             تالار گفتگو
                         </a>
@@ -80,37 +80,37 @@
                 </h3>
                 <ul class="space-y-3">
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'roman']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             رمان
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'historical']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             تاریخی
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'scientific']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             علمی
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'philosophy']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             فلسفه
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'psychology']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             روانشناسی
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
+                        <a href="{{ route('category.books', ['category' => 'economy']) }}" class="text-zinc-300 hover:text-white transition duration-300 flex items-center">
                             <i class="fas fa-arrow-left ml-2 text-xs"></i>
                             اقتصاد
                         </a>
@@ -172,5 +172,5 @@
     });
     
     // اسکریپت Goftino
-    !function(){var i="Tzj06C",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
+    // !function(){var i="Tzj06C",a=window,d=document;function g(){var g=d.createElement("script"),s="https://www.goftino.com/widget/"+i,l=localStorage.getItem("goftino_"+i);g.async=!0,g.src=l?s+"?o="+l:s;d.getElementsByTagName("head")[0].appendChild(g);}"complete"===d.readyState?g():a.attachEvent?a.attachEvent("onload",g):a.addEventListener("load",g,!1);}();
 </script>

@@ -3,9 +3,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controller;
 use App\Models\User;
-use App\Request;
-use App\Core\Authentication\Auth;
-use App\Auth\AuthenticationPipeline;
+use App\Models\Wallet;
+use Cyron\Http\Request;
+use Cyron\Authentication\Auth;
+use Cyron\Authentication\AuthenticationPipeline;
+use App\Events\UserRegistered;
+use Cyron\Analytics\ActivityTracker;
 
 class RegisterController extends Controller
 {
@@ -37,6 +40,14 @@ class RegisterController extends Controller
             'password' => password_hash($request->input('password'), PASSWORD_DEFAULT),
             'role'     => config('auth.default_role', 'user'),
         ]);
+
+        Wallet::create([
+            'user_id' => $user->id,
+            'balance' => 0,
+        ]);
+
+        event(new UserRegistered((int) $user->id, $user->email, $user->name));
+        ActivityTracker::record('user.registered', [], (int) $user->id);
 
         // لاگین خودکار
         Auth::login($user);

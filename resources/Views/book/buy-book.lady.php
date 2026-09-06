@@ -78,7 +78,7 @@
                     <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">روش پرداخت را انتخاب کنید:</h3>
 
-                        <form action="{{ route('book.purchase', $book) }}" method="POST">
+                        <form action="{{ route('book.purchase', ['slug' => $book->slug]) }}" method="POST">
                             @csrf
                             <!-- گزینه 1: پرداخت کامل از طریق درگاه -->
                             <div class="flex items-start mb-4">
@@ -147,6 +147,8 @@
                             </div>
 
                             <div class="mt-6">
+                                <label for="coupon_code" class="block text-gray-700 dark:text-gray-300 text-sm mb-2">کد تخفیف</label>
+                                <input type="text" name="coupon_code" id="coupon_code" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white mb-4" placeholder="در صورت داشتن کد وارد کنید">
                                 <button type="submit"
                                     class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
                                     پرداخت

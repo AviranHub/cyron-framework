@@ -3,7 +3,7 @@
 
 namespace App\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 use App\Models\User;
 
 class PersonalAccessToken extends Model

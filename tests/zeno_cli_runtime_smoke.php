@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 $root=dirname(__DIR__);
-$entry=$root.'/zeno.php';
+$entry=$root.'/zeno';
 $php=escapeshellarg(PHP_BINARY);
 $cases=[
     '' => ['CYRON PHP FRAMEWORK',0],

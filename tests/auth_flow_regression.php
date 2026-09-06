@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 $root = dirname(__DIR__);
-$auth = file_get_contents($root . '/app/Core/Authentication/Auth.php');
-$manager = file_get_contents($root . '/app/Auth/LoginManager.php');
+$auth = file_get_contents($root . '/src/Cyron/Authentication/Auth.php');
+$manager = file_get_contents($root . '/src/Cyron/Authentication/LoginManager.php');
 $controller = file_get_contents($root . '/app/Modules/Auth/Controllers/Auth/LoginController.php');
 $routes = file_get_contents($root . '/app/Modules/Auth/routes.php');
 

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controller;
 use App\Models\User;
-use App\Analytics\SegmentRegistry;
+use Cyron\Analytics\SegmentRegistry;
 
 class SegmentController extends Controller {
  public function index(){

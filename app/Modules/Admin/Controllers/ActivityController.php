@@ -16,7 +16,12 @@ class ActivityController extends Controller
         if ($from = request()->input('from')) $query->where('occurred_at', '>=', $from . ' 00:00:00');
         if ($to = request()->input('to')) $query->where('occurred_at', '<=', $to . ' 23:59:59');
         $activities = $query->orderBy('occurred_at', 'desc')->paginate(50);
-        return view('admin.activities.index', compact('activities'));
+        $users = User::query()->orderBy('name')->limit(500)->get();
+        $activityRows = [];
+        foreach ($activities->items() as $activity) {
+            $activityRows[] = ['activity' => $activity, 'user' => $activity->user_id ? User::find((int) $activity->user_id) : null];
+        }
+        return view('admin.activities.index', compact('activities', 'users', 'activityRows'));
     }
 
     public function user(int $id)
@@ -25,10 +30,13 @@ class ActivityController extends Controller
         if (!$user) abort(404);
         $base = UserActivity::query()->where('user_id', '=', $id);
         $totalActivities = (clone $base)->count();
-        $activeDays = (clone $base)->selectRaw('DATE(occurred_at) as activity_day')->groupBy('activity_day')->get()->count();
+        $activeDays = [];
+        foreach ((clone $base)->select(['occurred_at'])->get() as $activity) {
+            $activeDays[substr((string) $activity->occurred_at, 0, 10)] = true;
+        }
+        $activeDays = count($activeDays);
         $lastActivity = (clone $base)->orderBy('occurred_at','desc')->first();
-        $topEvents = (clone $base)->selectRaw('event, label, COUNT(*) as total')->whereNotNull('event')->groupBy('event','label')->orderBy('total','desc')->limit(5)->get();
         $activities = (clone $base)->orderBy('occurred_at','desc')->paginate(50);
-        return view('admin.activities.user', compact('user','activities','totalActivities','activeDays','lastActivity','topEvents'));
+        return view('admin.activities.user', compact('user','activities','totalActivities','activeDays','lastActivity'));
     }
 }

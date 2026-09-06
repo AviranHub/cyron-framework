@@ -13,6 +13,9 @@
             <a class="user-brand" href="{{ route('home') }}"><span>ک</span><div><strong>کلبه کتاب</strong><small>حساب کاربری</small></div></a>
             <nav class="user-nav">
                 <a class="user-nav-link active" href="{{ route('user.dashboard') }}"><i class="fas fa-house"></i> نمای کلی</a>
+                <a class="user-nav-link" href="{{ route('user.library') }}"><i class="fas fa-book-open"></i> کتابخانه من</a>
+                <a class="user-nav-link" href="{{ route('user.wallet') }}"><i class="fas fa-wallet"></i> کیف پول</a>
+                <a class="user-nav-link" href="{{ route('subscriptions.plans') }}"><i class="fas fa-gem"></i> اشتراک کلبه کتاب</a>
                 <a class="user-nav-link" href="{{ route('user.profile.edit') }}"><i class="fas fa-user"></i> پروفایل من</a>
                 <a class="user-nav-link" href="{{ route('user.change-password') }}"><i class="fas fa-lock"></i> امنیت حساب</a>
                 <div class="user-nav-label">دسترسی سریع</div>

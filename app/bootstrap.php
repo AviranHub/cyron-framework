@@ -5,40 +5,54 @@ if (is_file($composerAutoload)) {
     require_once $composerAutoload;
 }
 require_once APP_PATH . '/autoload.php';
-require_once APP_PATH . '/Response.php';
-require_once APP_PATH . '/Core/Env.php';
-\App\Core\Env::load(defined('BASE_PATH') ? BASE_PATH . '/.env' : dirname(__DIR__) . '/.env');
-require_once APP_PATH . '/helpers.php';
-require_once APP_PATH . '/Libs/jdf.php';
-require_once APP_PATH . '/database/Db.php';
-require_once APP_PATH . '/database/Model.php';
-require_once APP_PATH . '/database/Migration.php';
-require_once APP_PATH . '/migrate.php';
-require_once APP_PATH . '/Http/ErorrBag.php';
-require_once APP_PATH . '/Http/Storage.php';
-require_once APP_PATH . '/Http/Kernel.php';
+\Cyron\Support\Env::load(defined('BASE_PATH') ? BASE_PATH . '/.env' : dirname(__DIR__) . '/.env');
+require_once BASE_PATH . '/src/Cyron/helpers.php';
+require_once BASE_PATH . '/src/Cyron/Libs/jdf.php';
+require_once BASE_PATH . '/src/Cyron/Http/ErrorBag.php';
+require_once BASE_PATH . '/src/Cyron/Http/Storage.php';
+require_once BASE_PATH . '/src/Cyron/Http/Kernel.php';
 require_once APP_PATH . '/Http/Middleware.php';
 require_once APP_PATH . '/Http/Middlewares/CsrfMiddleware.php';
 require_once APP_PATH . '/Http/Middlewares/SecurityHeadersMiddleware.php';
-require_once APP_PATH . '/router.php';
-require_once APP_PATH . '/str.php';
-require_once APP_PATH . '/Core/app.php';
-require_once APP_PATH . '/Core/Lady/Compiler.php';
-require_once APP_PATH . '/Core/Lady/Engine.php';
-require_once APP_PATH . '/Core/Lady/Parser.php';
-require_once APP_PATH . '/Core/Localization/Translator.php';
-require_once APP_PATH . '/Core/Authorization/Gate.php';
-require_once APP_PATH . '/Core/Http/Security/ProductionGuard.php';
+require_once dirname(APP_PATH) . '/src/Cyron/Application.php';
 
-use App\Core\Env;
-use App\Core\Lady\Parser;
-use App\Core\Lady\Compiler;
-use App\Core\Lady\Engine;
-use App\Core\Storage\StorageManager;
-use App\Core\Localization\Translator;
-use App\Core\Exceptions\Handler;
-use App\Core\Http\Security\ProductionGuard;
-use App\Route;
+\Cyron\Events\Event::load(APP_PATH . '/Events.php');
+
+\Cyron\Plugin\PluginManager::discover([APP_PATH . '/Plugins']);
+$pluginConfig = is_file(APP_PATH . '/Config/plugins.php') ? require APP_PATH . '/Config/plugins.php' : [];
+foreach (($pluginConfig['enabled'] ?? []) as $pluginName) {
+    \Cyron\Plugin\PluginManager::activate((string) $pluginName);
+}
+
+\Cyron\Database\ModelRegistry::registerMany([
+    'user' => \App\Models\User::class,
+    'login_attempt' => \App\Models\LoginAttempt::class,
+    'login_history' => \App\Models\LoginHistory::class,
+    'password_reset_token' => \App\Models\PasswordResetToken::class,
+    'auth_session' => \App\Models\AuthSession::class,
+    'remember_token' => \App\Models\RememberToken::class,
+    'personal_access_token' => \App\Models\PersonalAccessToken::class,
+    'user_totp' => \App\Models\UserTotp::class,
+    'user_two_factor' => \App\Models\UserTwoFactor::class,
+    'two_factor_recovery_code' => \App\Models\TwoFactorRecoveryCode::class,
+    'verification_challenge' => \App\Models\VerificationChallenge::class,
+    'user_activity' => \App\Models\UserActivity::class,
+    'audit_log' => \App\Models\AuditLog::class,
+]);
+
+foreach ([APP_PATH . '/Config/analytics.php', APP_PATH . '/Config/metrics.php', APP_PATH . '/Config/segments.php'] as $analyticsConfig) {
+    if (is_file($analyticsConfig)) require_once $analyticsConfig;
+}
+
+use Cyron\Support\Env;
+use Cyron\Lady\Parser;
+use Cyron\Lady\Compiler;
+use Cyron\Lady\Engine;
+use Cyron\Storage\StorageManager;
+use Cyron\Localization\Translator;
+use Cyron\Exceptions\Handler;
+use Cyron\Http\Security\ProductionGuard;
+use Cyron\Routing\Route;
 
 $cachePath = STORAGE_PATH . '/cache/views';
 if (!is_dir($cachePath)) mkdir($cachePath, 0755, true);
@@ -79,6 +93,14 @@ if ($appDebug === null) {
 }
 $debug = $appEnv !== 'production' && filter_var($appDebug, FILTER_VALIDATE_BOOLEAN);
 Handler::setDebug($debug);
+
+\Cyron\Authorization\Gate::setUserResolver(static function () {
+    return \Cyron\Authentication\Auth::user();
+});
+\Cyron\Authorization\Ownership::setUserResolver(static function () {
+    return \Cyron\Authentication\Auth::user();
+});
+
 ini_set('display_errors', $debug ? '1' : '0');
 ini_set('display_startup_errors', $debug ? '1' : '0');
 set_exception_handler([Handler::class, 'handle']);
@@ -92,3 +114,4 @@ Route::globalMiddleware(\App\Http\Middlewares\CsrfMiddleware::class);
 
 require_once ROUTES_PATH . '/web.php';
 require_once ROUTES_PATH . '/docs.php';
+require_once ROUTES_PATH . '/api.php';

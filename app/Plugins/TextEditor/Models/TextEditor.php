@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\TextEditor\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 
 class TextEditor extends Model
 {

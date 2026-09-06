@@ -1,11 +1,21 @@
 <?php
 
-use App\Route;
+use Cyron\Routing\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\TestValidationController;
-use App\Str;
+use Cyron\Support\Str;
 use App\Http\Middlewares\AuthMiddleware;
+use App\Http\Controllers\User\LibraryController;
+use App\Http\Controllers\User\WalletController;
+use App\Http\Controllers\User\PaymentController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ReaderController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\ForumController;
 
 
 // Route::get('/home', function() {
@@ -56,25 +66,22 @@ use App\Http\Middlewares\AuthMiddleware;
 //     return view('welcome');
 // });
 
-Route::get('/test-component', function () {
-    return view('test-component');
-});
+if (strtolower((string) \Cyron\Support\Env::get('APP_ENV', 'production')) !== 'production') {
+    Route::get('/test-component', function () {
+        return view('test-component');
+    });
 
-Route::get('/raw', function() {
-    return "Raw output - framework is working!";
-});
+    Route::get('/raw', function() {
+        return "Raw output - framework is working!";
+    });
 
+    Route::get('/test',function (){
+        return view('test');
+    });
 
-Route::get('/test',function (){
-    return view('test');
-});
-
-// Route::get('/test',function (){
-//     echo Str::slug('کامپیوتر');
-// });
-
-Route::get('/test-validation', [TestValidationController::class, 'showForm'])->name('test-validation.form');
-Route::post('/test-validation', [TestValidationController::class, 'validateForm'])->name('test-validation.validate');
+    Route::get('/test-validation', [TestValidationController::class, 'showForm'])->name('test-validation.form');
+    Route::post('/test-validation', [TestValidationController::class, 'validateForm'])->name('test-validation.validate');
+}
 
 Route::get('/about-us', [HomeController::class, 'about'])->name('about-us');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact-us');
@@ -139,6 +146,10 @@ Route::prefix('book')->group(function () {
 	Route::get('/{slug}', [HomeController::class, 'book'])->name('book');
 	Route::get('/{slug}/page/{id}', [HomeController::class, 'bookpage_fv'])->name('bookpage-fv');
 	Route::get('/{slug}/buy', [HomeController::class, 'buy_book'])->name('book.buy')/*->middleware(AuthMiddleware::class)*/;
+    Route::post('/{slug}/purchase', [PaymentController::class, 'purchaseBook'])->name('book.purchase')->middleware(AuthMiddleware::class);
+    Route::get('/{slug}/reader', [ReaderController::class, 'show'])->name('book.reader')->middleware(AuthMiddleware::class);
+    Route::get('/{slug}/read/page/{id}', [HomeController::class, 'online_ready'])->name('online-ready')->middleware(AuthMiddleware::class);
+    Route::post('/{slug}/comment', [HomeController::class, 'save_comments'])->name('save-comments')->middleware(AuthMiddleware::class);
 	// Route::get('/{slug}/read/page/{id}', [HomeController::class, 'online_ready'])->name('online-ready');
 	// Route::post('/{slug}/comment', [HomeController::class, 'save_comments'])->name('save-comments');
     // Route::post('/{book}/purchase', [PayController::class, 'purchaseBook'])->name('book.purchase')->middleware('auth');
@@ -147,8 +158,45 @@ Route::prefix('book')->group(function () {
 	
 });
 
+Route::get('/dashboard/add-to-library/{slug}', [HomeController::class, 'add_to_library'])
+    ->name('add-to-library')->middleware(AuthMiddleware::class);
+
 Route::get('/books', [HomeController::class, 'books'])->name('books');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/books/category/{category}', [HomeController::class, 'category_books'])->name('category.books');
+Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('subscriptions.plans');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+Route::get('/forum/category/{slug}', [ForumController::class, 'category'])->name('forum.category');
+Route::get('/forum/topic/{slug}', [ForumController::class, 'show'])->name('forum.topic');
+Route::middleware(AuthMiddleware::class)->prefix('forum')->group(function () {
+    Route::get('/create', [ForumController::class, 'create'])->name('forum.create');
+    Route::post('/topics', [ForumController::class, 'store'])->name('forum.store');
+    Route::post('/topic/{slug}/replies', [ForumController::class, 'reply'])->name('forum.reply');
+});
+Route::get('/author/{authorName}', [AuthorController::class, 'show'])->name('author.profile');
+Route::get('/u/{username}', [UserProfileController::class, 'show'])->name('user.profile');
+Route::post('/author/{authorName}/follow', [AuthorController::class, 'toggleFollow'])->name('author.follow')->middleware(AuthMiddleware::class);
+Route::post('/author/{authorName}/support', [AuthorController::class, 'support'])->name('author.support')->middleware(AuthMiddleware::class);
+Route::post('/toggle-like', [LikeController::class, 'toggle'])->name('toggle.like')->middleware(AuthMiddleware::class);
+
+Route::middleware(AuthMiddleware::class)->prefix('dashboard')->group(function () {
+    Route::get('/library', [LibraryController::class, 'index'])->name('user.library');
+    Route::post('/library/shelves', [LibraryController::class, 'storeShelf'])->name('user.library.shelves.store');
+    Route::get('/library/shelves/{id}', [LibraryController::class, 'showShelf'])->name('user.library.shelves.show');
+    Route::post('/subscriptions/{id}/purchase', [SubscriptionController::class, 'purchase'])->name('subscriptions.purchase');
+    Route::get('/wallet', [WalletController::class, 'index'])->name('user.wallet');
+    Route::post('/wallet/recharge', [PaymentController::class, 'recharge'])->name('wallet.recharge');
+});
+
+Route::middleware(AuthMiddleware::class)->prefix('support')->group(function () {
+    Route::get('/messages', [\App\Http\Controllers\SupportController::class, 'messages'])->name('support.messages');
+    Route::post('/messages', [\App\Http\Controllers\SupportController::class, 'send'])->name('support.messages.send');
+    Route::get('/attachments/{filename}', [\App\Http\Controllers\SupportController::class, 'attachment'])->name('support.attachments.show');
+});
+
+Route::get('/payment/verify', [PaymentController::class, 'verify'])->name('payment.verify');
 
 Route::get('/lang/{locale}', function($locale) {
     set_locale($locale);

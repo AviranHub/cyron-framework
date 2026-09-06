@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-use App\Database\Model;
+use Cyron\Database\Model;
 class LoginHistory extends Model {
  protected static $table = 'login_histories';
  protected static array $fillable =['user_id','successful','ip_address','user_agent','context','occurred_at'];

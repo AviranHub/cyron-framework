@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__.'/../app/database/Model.php';
+require_once __DIR__.'/../src/Cyron/Database/Model.php';
 
-use App\Database\Model;
+use Cyron\Database\Model;
 
 $failed=0;
 function expectSecurity(bool $ok,string $name):void{global $failed;if(!$ok){$failed++;echo "FAIL: $name\n";}else echo "PASS: $name\n";}

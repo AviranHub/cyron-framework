@@ -4,7 +4,7 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Cache\CacheManager;
+use Cyron\Cache\CacheManager;
 
 class RateLimiter extends Middleware
 {

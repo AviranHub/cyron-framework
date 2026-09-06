@@ -2,8 +2,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controller;
-use App\Auth\LoginManager;
-use App\Request;
+use Cyron\Authentication\LoginManager;
+use Cyron\Http\Request;
 
 class LoginController extends Controller
 {
@@ -16,7 +16,8 @@ class LoginController extends Controller
     {
         $login = (string)$request->input('login');
         $password = (string)$request->input('password');
-        $result = LoginManager::attempt($login, $password);
+        $remember = filter_var($request->input('remember', false), FILTER_VALIDATE_BOOLEAN);
+        $result = LoginManager::attempt($login, $password, $remember);
 
         if (($result['status'] ?? null) === 'authenticated') {
             return redirect()->route('dashboard');

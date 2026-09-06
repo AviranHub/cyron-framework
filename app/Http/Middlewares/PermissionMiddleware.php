@@ -3,7 +3,7 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Authorization\Gate;
+use Cyron\Authorization\Gate;
 
 class PermissionMiddleware extends Middleware
 {

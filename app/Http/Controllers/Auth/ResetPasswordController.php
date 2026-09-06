@@ -3,9 +3,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controller;
 use App\Models\User;
-use App\Request;
+use Cyron\Http\Request;
 use App\Database\Db;
-use App\Auth\SessionRegistry;
+use Cyron\Authentication\SessionRegistry;
 
 class ResetPasswordController extends Controller
 {

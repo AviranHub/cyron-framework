@@ -5,6 +5,8 @@ node_modules
 /.var
 /.vscode/
 /vendor/
+/bkhut/
+/data.sql
 *.log
 /storage/logs/*
 /storage/cache/*

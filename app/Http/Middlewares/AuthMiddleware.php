@@ -3,7 +3,7 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Authentication\Auth as AuthHelper;
+use Cyron\Authentication\Auth as AuthHelper;
 
 class AuthMiddleware extends Middleware
 {

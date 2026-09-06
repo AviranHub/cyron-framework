@@ -2,8 +2,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controller;
-use App\Core\Authentication\Auth;
-use App\Request;
+use Cyron\Authentication\Auth;
+use Cyron\Http\Request;
 
 class DashboardController extends Controller
 {

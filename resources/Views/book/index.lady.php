@@ -73,9 +73,9 @@
                             <p class="m-0">نویسنده :
                                 @if ($book->author_id == 'author')
                                     <a class="text-blue-600 hover:underline"
-                                        href="{{ route('author', ['id' => $book->publisher_id]) }}">{{ $book->author }}</a>
+                                        href="{{ route('author.profile', ['authorName' => $book->author]) }}">{{ $book->author }}</a>
                                 @else
-                                    <span class="text-green-500 font-medium">{{ $book->author_name }}</span>
+                                    <a class="text-green-500 font-medium hover:underline" href="{{ route('author.profile', ['authorName' => $book->author_name]) }}">{{ $book->author_name }}</a>
                                 @endif
                             </p>
                         </div>
@@ -103,19 +103,19 @@
                         <div class="flex items-center gap-2">
                             <i class="fa fa-tag text-red-500"></i>
                             <p class="m-0">قیمت :
-                                @if ($book->copen == 100 or $book->price == 0)
+                                @if (($pricing['final_amount'] ?? $book->price) == 0)
                                     <span class="text-green-500 font-bold text-xl">رایگان</span>
                                 @else
-                                    @if ($book->copen > 0)
+                                    @if (($pricing['discount_amount'] ?? 0) > 0)
                                         <span
                                             class="text-gray-500 line-through ml-2">{{ number_format($book->price) }}</span>
                                         @php
-                                            $discountedPrice = $book->price - ($book->price * $book->copen) / 100;
+                                            $discountedPrice = $pricing['final_amount'];
                                         @endphp
                                         <span
                                             class="text-green-500 font-bold text-xl">{{ number_format($discountedPrice) }}</span>
                                         <span
-                                            class="bg-red-500 text-white text-sm px-2 py-1 rounded-md mr-2">{{ $book->copen }}%</span>
+                                            class="bg-red-500 text-white text-sm px-2 py-1 rounded-md mr-2">تخفیف</span>
                                     @else
                                         <span
                                             class="text-green-500 font-bold text-xl">{{ number_format($book->price) }}</span>
@@ -325,6 +325,24 @@
         <p class="font-vazir text-align-right p-1 mx-4 r-10d position-relative text-gray-900 dark:text-gray-100 text-lg">
             {{ $countComments }} دیدگاه
         </p>
+        <section class="comments-list container mx-auto px-4 pb-8" aria-labelledby="comments-title">
+            <h3 id="comments-title" class="font-vazir text-xl text-gray-900 dark:text-gray-100 mb-4">گفت‌وگوی خواننده‌ها</h3>
+            @if (count($comments) > 0)
+                <div class="grid gap-3">
+                    @foreach ($comments as $comment)
+                        <article class="rounded-xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-4">
+                            <div class="flex items-center justify-between gap-3 mb-2">
+                                <strong class="text-gray-900 dark:text-white">{{ $comment->author_name }}</strong>
+                                <time class="text-xs text-gray-500" datetime="{{ $comment->created_at }}">{{ $comment->created_at }}</time>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 leading-8 m-0">{{ $comment->text }}</p>
+                        </article>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500 dark:text-gray-400">هنوز دیدگاه تاییدشده‌ای برای این کتاب ثبت نشده است.</p>
+            @endif
+        </section>
 {{--
         <div class="container">
             <div class="flex flex-col w-full gap-6">

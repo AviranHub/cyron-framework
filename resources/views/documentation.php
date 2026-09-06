@@ -43,7 +43,7 @@ $request-&gt;bearerToken();</code></pre><p>درخواست‌های <code>applica
         &#64;endforeach
     &#64;endif
 &#64;endsection</code></pre><p>توجه: علامت‌های <code>&#64;</code>، <code>&#36;</code> و <code>&#123;&#125;</code> در مثال بالا عمداً HTML-encoded هستند تا خود Documentation توسط Lady اجرا نشود؛ مرورگر آن‌ها را به شکل کد عادی نمایش می‌دهد.</p><table><tr><th>Syntax</th><th>کاربرد</th></tr><tr><td><code>&#64;extends</code></td><td>Layout inheritance</td></tr><tr><td><code>&#64;section</code></td><td>تعریف بخش</td></tr><tr><td><code>&#64;yield</code></td><td>نمایش بخش</td></tr><tr><td><code>&#64;include</code></td><td>درج View دیگر</td></tr><tr><td><code>&#64;if / &#64;foreach</code></td><td>شرط و حلقه</td></tr><tr><td><code>&#64;csrf</code></td><td>توکن CSRF</td></tr><tr><td><code>&#64;error / &#64;errors</code></td><td>نمایش خطا</td></tr><tr><td><code>&#123;&#123; ... &#125;&#125;</code></td><td>خروجی Escape شده</td></tr><tr><td><code>&#123;&#33;&#33; ... &#33;&#33;&#125;</code></td><td>خروجی خام</td></tr></table></section>
-<section id="db"><h2>4. Database / Model / Query Builder</h2><p>مدل‌ها از <code>App\Database\Model</code> استفاده می‌کنند. برای مدل‌های پروژه جدول را با <code>protected static $table</code> مشخص کنید.</p><pre><code>class User extends Model
+<section id="db"><h2>4. Database / Model / Query Builder</h2><p>مدل‌ها از <code>Cyron\Database\Model</code> استفاده می‌کنند. برای مدل‌های پروژه جدول را با <code>protected static $table</code> مشخص کنید.</p><pre><code>class User extends Model
 &#123;
     protected static &#36;table = 'users';
     protected static array &#36;fillable = ['name', 'email', 'password'];

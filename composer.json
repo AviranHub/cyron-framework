@@ -20,6 +20,10 @@
             "Tests\\": "tests/"
         }
     },
+    "scripts": {
+        "test": "@php -r \"foreach (glob('tests/*.php') as $test) { if (basename($test) === 'insert-test-book.php') continue; passthru(PHP_BINARY . ' ' . escapeshellarg($test), $code); if ($code !== 0) exit($code); }\"",
+        "validate-project": "@composer validate --no-check-publish"
+    },
     "minimum-stability": "stable",
     "prefer-stable": true
 }

@@ -1,14 +1,14 @@
 <?php
 namespace App\Models;
 
-use App\Database\Model;
-use App\Core\Authentication\PhoneVerification;
+use Cyron\Database\Model;
+use Cyron\Authentication\PhoneVerification;
 
 class User extends Model
 {
     protected static $table = 'users';
     protected static array $fillable = [
-        'name', 'email', 'phone', 'password', 'role',
+        'name', 'username', 'email', 'phone', 'password', 'role', 'bio', 'avatar',
         'phone_verified_at', 'email_verified_at', 'remember_token',
         'login_count', 'last_login_at', 'status', 'suspended_until', 'primary_role_id'
     ];

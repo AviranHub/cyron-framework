@@ -2,8 +2,8 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Authentication\Auth;
-use App\Core\Authentication\PhoneVerification;
+use Cyron\Authentication\Auth;
+use Cyron\Authentication\PhoneVerification;
 
 class VerifiedPhoneMiddleware extends Middleware
 {

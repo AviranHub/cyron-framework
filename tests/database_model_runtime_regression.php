@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 $root=dirname(__DIR__);
 $files=[
-    $root.'/app/database/Db.php',
-    $root.'/app/database/Model.php',
+    $root.'/src/Cyron/Database/Db.php',
+    $root.'/src/Cyron/Database/Model.php',
 ];
 
 foreach($files as $file){
@@ -15,7 +15,7 @@ foreach($files as $file){
     }
 }
 
-$model=file_get_contents($root.'/app/database/Model.php');
+$model=file_get_contents($root.'/src/Cyron/Database/Model.php');
 foreach(['public static function find($id)','public static function create($data)','public function save()','public function update($data)','public function delete()'] as $needle){
     if(strpos($model,$needle)===false){echo "FAIL: Model lifecycle method missing: $needle\n";exit(1);}
 }

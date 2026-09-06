@@ -109,6 +109,14 @@
 
                 <li class="admin-nav-label admin-nav-label-spaced">امنیت و سیستم</li>
                 <li><a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-chart-line w-5 text-center"></i><span>نمای کلی سیستم</span></a></li>
+                <li><a href="{{ route('admin.finance.transactions') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-receipt w-5 text-center"></i><span>تراکنش‌های مالی</span></a></li>
+                <li><a href="{{ route('admin.finance.overview') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-chart-pie w-5 text-center"></i><span>داشبورد مالی</span></a></li>
+                <li><a href="{{ route('admin.finance.wallet-transactions') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-wallet w-5 text-center"></i><span>گردش کیف پول</span></a></li>
+                <li><a href="{{ route('admin.finance.user-subscriptions') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-gem w-5 text-center"></i><span>اشتراک کاربران</span></a></li>
+                <li><a href="{{ route('admin.activities.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40 {{ request()->routeIs('admin.activities.*') ? 'nav-item-active' : '' }}"><i class="fas fa-chart-line w-5 text-center"></i><span>فعالیت کاربران</span></a></li>
+                <li><a href="{{ route('admin.forum.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40 {{ request()->routeIs('admin.forum.*') ? 'nav-item-active' : '' }}"><i class="fas fa-comments w-5 text-center"></i><span>مدیریت انجمن</span></a></li>
+                <li><a href="{{ route('forum.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40"><i class="fas fa-external-link-alt w-5 text-center"></i><span>مشاهده انجمن</span></a></li>
+                <li><a href="{{ route('admin.support.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 hover:bg-indigo-700/40 {{ request()->routeIs('admin.support.*') ? 'nav-item-active' : '' }}"><i class="fas fa-comments w-5 text-center"></i><span>پشتیبانی آنلاین</span></a></li>
 
                 <li class="pt-4 mt-2 border-t border-zinc-700">
                     <!-- خروج -->

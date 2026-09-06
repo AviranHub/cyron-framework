@@ -9,13 +9,13 @@ declare(strict_types=1);
 define('BASE_PATH', __DIR__);
 define('STORAGE_PATH', BASE_PATH . '/storage');
 
-require BASE_PATH . '/app/Core/Log/drivers/DriverInterface.php';
-require BASE_PATH . '/app/Core/Log/drivers/FileDriver.php';
-require BASE_PATH . '/app/Core/Log/LogManager.php';
-require BASE_PATH . '/app/Core/Exceptions/HttpException.php';
-require BASE_PATH . '/app/Core/Exceptions/Handler.php';
+require BASE_PATH . '/src/Cyron/Log/drivers/DriverInterface.php';
+require BASE_PATH . '/src/Cyron/Log/drivers/FileDriver.php';
+require BASE_PATH . '/src/Cyron/Log/LogManager.php';
+require BASE_PATH . '/src/Cyron/Exceptions/HttpException.php';
+require BASE_PATH . '/src/Cyron/Exceptions/Handler.php';
 
-use App\Core\Exceptions\Handler;
+use Cyron\Exceptions\Handler;
 
 $_SERVER['REQUEST_METHOD'] = 'GET';
 $_SERVER['HTTP_HOST'] = 'example.test';

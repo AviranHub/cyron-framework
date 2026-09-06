@@ -16,7 +16,7 @@
     <script type="module" src="http://localhost:5173/resources/Scripts/script.js"></script>
 
 </head>
-<body class="bg-gray-100 dark:bg-zinc-800">
+<body class="min-h-screen bg-emerald-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
     <div class="container mx-auto px-4 py-8">
         @if(session()->get('success'))
             <div class="bg-green-100 text-green-800 p-3 rounded mb-4">{{ session()->get('success') }}</div>

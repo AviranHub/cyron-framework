@@ -43,7 +43,7 @@ resources/
 ├─ Views/         (فایل‌های ویو لیدی)
 ├─ lang/          (فایل‌های ترجمه)
 public/           (نقطه ورود، فایل‌های عمومی)
-cli/              (کامندهای خط فرمان)
+zeno              (ورودی خط فرمان فریمورک)
 storage/cache/views/ (کش ویوها)
 routes/           (web.php و api.php)
 zeno              (فایل ورودی CLI)
@@ -179,7 +179,7 @@ class HomeController extends Controller
 ```bash
 php zeno make:migration create_users_table
 ```
-فایل ایجاد شده در `app/database/Migrations/` را ویرایش کنید:
+فایل ایجاد شده در `database/Migrations/` را ویرایش کنید:
 ```php
 public static function up()
 {
@@ -206,7 +206,7 @@ php zeno make:model User
 ```php
 namespace App\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 
 class User extends Model
 {

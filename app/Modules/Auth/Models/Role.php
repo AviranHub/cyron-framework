@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 use App\Models\Permission;
 
 class Role extends Model

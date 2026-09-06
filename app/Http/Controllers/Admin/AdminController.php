@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controller;
-use App\Request;
-use App\Audit\Audit;
+use Cyron\Http\Request;
+use Cyron\Audit;
+use App\Models\Book;
+use App\Models\BookCategory;
+use App\Models\Subscription;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -141,6 +145,7 @@ class AdminController extends Controller
         return view('admin.create', [
             'config'  => $this->config,
             'modelKey' => $this->modelKey,
+            'discountTargets' => $this->discountTargets(),
         ]);
     }
 
@@ -177,7 +182,28 @@ class AdminController extends Controller
             'item'    => $item,
             'config'  => $this->config,
             'modelKey' => $this->modelKey,
+            'discountTargets' => $this->discountTargets(),
         ]);
+    }
+
+    protected function discountTargets(): array
+    {
+        if ($this->modelKey !== 'discounts') return [];
+
+        $targets = ['book' => [], 'category' => [], 'author' => [], 'subscription' => []];
+        foreach (Book::query()->orderBy('title')->limit(500)->get() as $book) {
+            $targets['book'][(int) $book->id] = $book->title;
+        }
+        foreach (BookCategory::query()->orderBy('name')->limit(500)->get() as $category) {
+            $targets['category'][(int) $category->id] = $category->name;
+        }
+        foreach (User::query()->orderBy('name')->limit(500)->get() as $author) {
+            $targets['author'][(int) $author->id] = $author->name . ' (#' . $author->id . ')';
+        }
+        foreach (Subscription::query()->orderBy('name')->limit(100)->get() as $subscription) {
+            $targets['subscription'][(int) $subscription->id] = $subscription->name;
+        }
+        return $targets;
     }
 
     public function update(Request $request, $id)

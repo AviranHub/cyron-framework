@@ -2,8 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controller;
-use App\Request;
-use App\Database\Model;
+use Cyron\Http\Request;
+use Cyron\Database\Model;
 
 class AdminController extends Controller
 {

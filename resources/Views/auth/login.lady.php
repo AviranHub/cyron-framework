@@ -73,6 +73,12 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="remember" value="1">
+                <label class="flex items-center gap-2 mb-5 text-sm text-gray-700 dark:text-gray-300">
+                    <input type="checkbox" checked disabled class="rounded border-gray-300 text-blue-600">
+                    <span>مرا به خاطر بسپار</span>
+                </label>
+
                 <!-- دکمه ورود -->
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">

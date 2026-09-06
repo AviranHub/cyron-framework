@@ -16,7 +16,7 @@ foreach($models as $file){
     $class='App\\Models\\'.basename($file,'.php');
     $script="<?php\n"
         .'define("APP_PATH", '.var_export($root.'/app',true).");\n"
-        .'require '.var_export($root.'/app/database/Model.php',true).";\n"
+        .'require '.var_export($root.'/src/Cyron/Database/Model.php',true).";\n"
         .'require '.var_export($root.'/app/autoload.php',true).";\n"
         .'if (!class_exists('.var_export($class,true).')) { fwrite(STDERR, "Missing model class"); exit(1); }'."\n"
         .'echo "OK";'."\n";

@@ -1,6 +1,6 @@
 <?php
 
-use App\Route;
+use Cyron\Routing\Route;
 
 /**
  * Cyron Framework documentation.

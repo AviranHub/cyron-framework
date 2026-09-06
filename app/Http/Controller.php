@@ -2,39 +2,10 @@
 
 namespace App\Http;
 
-class Controller {
-    protected $middleware = [];
+if (!class_exists('Cyron\\Http\\Controller')) {
+    require_once dirname(__DIR__, 2) . '/src/Cyron/Http/Controller.php';
+}
 
-    // متد برای اضافه کردن میدلور
-    public function middleware($middleware, $options = []) {
-        // اگر میدلور به صورت آرایه باشد، آن را به لیست میدلورها اضافه می‌کنیم
-        if (is_array($middleware)) {
-            foreach ($middleware as $m) {
-                $this->middleware[] = $m;
-            }
-        } else {
-            // در غیر این صورت، میدلور را به لیست اضافه می‌کنیم
-            $this->middleware[] = $middleware;
-        }
-
-        // می‌توانید از $options برای تنظیمات اضافی استفاده کنید
-        // به عنوان مثال، می‌توانید اولویت یا شرایط خاصی را تعیین کنید
-    }
-
-    // متد برای اجرای میدلورها
-    public function handleMiddleware() {
-        foreach ($this->middleware as $m) {
-            // فرض می‌کنیم که میدلور یک متد handle دارد
-            $middlewareInstance = new $m();
-            $response = $middlewareInstance->handle();
-
-            // اگر پاسخ میدلور چیزی غیر از null باشد، آن را برمی‌گردانیم
-            if ($response !== null) {
-                return $response;
-            }
-        }
-
-        // اگر هیچ میدلوری پاسخی نداد، ادامه می‌دهیم
-        return null;
-    }
+class Controller extends \Cyron\Http\Controller
+{
 }

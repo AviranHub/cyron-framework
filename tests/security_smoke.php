@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../app/Core/Http/Security/ProductionGuard.php';
+require_once __DIR__ . '/../src/Cyron/Http/Security/ProductionGuard.php';
 
-use App\Core\Http\Security\ProductionGuard;
+use Cyron\Http\Security\ProductionGuard;
 
 $failed = 0;
 function expectTrue(bool $condition, string $name): void

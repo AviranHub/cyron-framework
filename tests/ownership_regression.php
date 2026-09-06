@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../app/Core/Authorization/Ownership.php';
+require_once __DIR__.'/../src/Cyron/Authorization/Ownership.php';
 
-use App\Core\Authorization\Ownership;
+use Cyron\Authorization\Ownership;
 
 $owner = (object) ['id' => 10];
 $other = (object) ['id' => 11];

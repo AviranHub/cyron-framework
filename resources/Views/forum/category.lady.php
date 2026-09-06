@@ -1,0 +1,4 @@
+@extends('layouts.master')
+@section('content')
+<div class="container mx-auto max-w-4xl px-4 py-10"><a class="text-green-600" href="{{ route('forum.index') }}">← انجمن</a><h1 class="text-3xl font-bold mt-5">{{ $category->name }}</h1><p class="text-gray-500 mt-2">{{ $category->description }}</p><section class="bg-white dark:bg-zinc-900 rounded-lg shadow p-5 mt-8">@if(count($topics->items())) @foreach($topics as $topic)<a class="block border-b border-gray-200 dark:border-zinc-700 py-4" href="{{ route('forum.topic', ['slug' => $topic->slug]) }}"><strong>{{ $topic->title }}</strong><small class="block text-gray-500 mt-1">{{ $topic->created_at }} · {{ $topic->views }} بازدید</small></a>@endforeach @else<div class="py-6 text-gray-500">در این دسته هنوز موضوعی ثبت نشده است.</div>@endif<div class="mt-5">{!! $topics->links() !!}</div></section></div>
+@endsection

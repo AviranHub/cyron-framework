@@ -6,7 +6,7 @@ ini_set('display_startup_errors', '0');
 
 
 // تعریف مسیرهای ثابت
-define('BASE_PATH', dirname(__DIR__, 2));
+define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 define('PUBLIC_PATH', BASE_PATH . '/public');
 define('RESOURCES_PATH', BASE_PATH . '/resources');
@@ -17,7 +17,7 @@ define('STORAGE_PATH', BASE_PATH . '/storage');
 require_once APP_PATH . '/bootstrap.php';
 
 // اجرای روت‌ها
-use App\Route;
+use Cyron\Routing\Route;
 Route::run();
 
 // گزارش خطاها (فقط در محیط توسعه)

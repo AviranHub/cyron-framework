@@ -17,7 +17,7 @@ class Response
     public function cookie(string $name, string $value, int $expire = 0, string $path = '/', string $domain = '', bool $secure = false, bool $httponly = false): self { $this->cookies[] = compact('name', 'value', 'expire', 'path', 'domain', 'secure', 'httponly'); return $this; }
     public function withHeaders(array $headers): self { return $this->headers($headers); }
     public function withoutExit(): self { $this->shouldExit = false; return $this; }
-    public function send(): void { http_response_code($this->statusCode); foreach ($this->headers as $key => $value) header("{$key}: {$value}"); foreach ($this->cookies as $cookie) setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']); if ($this->content !== null) echo $this->content; if ($this->shouldExit) exit; }
+    public function send(): void { http_response_code($this->statusCode); foreach ($this->headers as $key => $value) header("{$key}: {$value}"); foreach ($this->cookies as $cookie) setcookie($cookie['name'], $cookie['value'], $cookie['expire'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']); if ($this->content !== null) echo $this->content; if ($this->shouldExit && PHP_SAPI !== 'cli-server') { exit; } }
     public static function json(mixed $data, int $status = 200, array $headers = []): self { return new self(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), $status, array_merge($headers, ['Content-Type' => 'application/json'])); }
     public static function view(string $view, array $data = [], int $status = 200, array $headers = []): self { return new self(view($view, $data), $status, $headers); }
     public static function text(string $text, int $status = 200, array $headers = []): self { return new self($text, $status, array_merge($headers, ['Content-Type' => 'text/plain; charset=utf-8'])); }
@@ -33,7 +33,7 @@ class Response
     public static function validationError(mixed $errors, string $message = 'Validation failed'): self { return self::error($message, 422, $errors); }
     public static function unauthorized(string $message = 'Unauthorized'): self { return self::error($message, 401); }
     public static function forbidden(string $message = 'Forbidden'): self { return self::error($message, 403); }
-    public static function notFound(string $message = 'Not Found'): self { return self::error($message, 404); }
+    public static function notFound(string $message = 'Not Found'): self { return self::json(['success' => false, 'message' => $message], 200); }
     public static function badRequest(string $message = 'Bad Request', mixed $errors = null): self { return self::error($message, 400, $errors); }
     public function setContent(mixed $content): self { $this->content = $content; return $this; }
     public function getContent(): mixed { return $this->content; }

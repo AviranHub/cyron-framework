@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Middlewares;
 use App\Http\Middleware;
-use App\Core\Authentication\Auth;
+use Cyron\Authentication\Auth;
 class SessionTimeoutMiddleware extends Middleware
 {
     private const DEFAULT_TIMEOUT=1800;

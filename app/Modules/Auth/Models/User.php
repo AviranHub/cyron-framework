@@ -1,8 +1,8 @@
 <?php
 namespace App\Models;
 
-use App\Database\Model;
-use App\Core\Authentication\PhoneVerification;
+use Cyron\Database\Model;
+use Cyron\Authentication\PhoneVerification;
 
 class User extends Model
 {

@@ -1,4 +1,4 @@
-<header class="fixed top-0 w-full bg-white/70 backdrop-blur-sm dark:bg-zinc-900/70 dark:backdrop-blur-sm shadow-md font-vazir overflow-visible z-20" x-data="{ open: false, openDropdown: false, showSearch: false }">
+<header class="fixed top-0 z-20 w-full border-b border-emerald-100 bg-white/90 font-vazir shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/90" x-data="{ open: false, openDropdown: false, showSearch: false }">
     <div class="container mx-auto flex justify-between items-center px-6">
         <div class="hidden md:flex items-center">
             <img src="/assets/img/icon.png" class="block h-12 w-auto fill-current text-zinc-800 dark:text-zinc-200" alt="لوگو کلبه کتاب" />
@@ -17,7 +17,7 @@
                         <div class="flex items-center text-gray-600 dark:text-gray-200 text-sm py-2" @click="searchBoxShow = false"><p class="mx-2">بازگشت</p><i class="fa fa-arrow-left"></i></div>
                     </div>
                     <h2 class="text-center text-green-500 text-3xl font-titr my-6">جستجو در کلبه کتاب</h2>
-                    <div class="flex w-full border-b-2 border-green-500 w-full h-12 my-2 items-center">
+                    <div class="flex w-full border-b-2 border-green-500 h-12 my-2 items-center">
                         <button class="text-green-500 text-lg p-1"><i class="fa fa-search"></i></button>
                         <input x-model="search" x-ref="searchInput" enterkeyhint="search" inputmode="search" @focus="focused = true" class="w-full mx-2 bg-transparent text-gray-800 dark:text-gray-100 caret-green-500 outline-none border-none  focus:outline-none focus:ring-0 focus:shadow-none" type="text" placeholder="جستجو کتاب ، نویسنده و ..." name="query" required>
                         <button type="button" x-show="search" @click="search = ''" class="text-gray-500 dark:text-gray-400 text-lg px-2">
@@ -100,7 +100,7 @@
                 <i :class="darkMode ? 'fa fa-sun' : 'fa fa-moon'"></i>
             </button>
             @auth
-            <a href="{{ route('dashboard') }}" class="flex text-zinc-400 dark:bg-zinc-800 py-2 px-4 rounded-lg border border-green-500 dark:border-zinc-400" title="داشبورد"><i
+            <a href="{{ route('user.dashboard') }}" class="flex text-zinc-400 dark:bg-zinc-800 py-2 px-4 rounded-lg border border-green-500 dark:border-zinc-400" title="داشبورد"><i
                     class="fa fa-user md:ml-2"></i>
                 <p class="hidden md:block">پنل کاربری</p>
             </a>
@@ -153,10 +153,10 @@
                             <div>
                                 <h3 class="font-semibold text-blue-600 dark:text-blue-400 mb-3">📚 کتاب‌ها</h3>
                                 <ul class="space-y-2">
-                                    <li><a href="#" class="block hover:text-blue-500">رمان</a></li>
-                                    <li><a href="#" class="block hover:text-blue-500">علمی</a></li>
-                                    <li><a href="#" class="block hover:text-blue-500">تاریخی</a></li>
-                                    <li><a href="#" class="block hover:text-blue-500">هنری</a></li>
+                                    <li><a href="{{ route('category.books', ['category' => 'roman']) }}" class="block hover:text-blue-500">رمان</a></li>
+                                    <li><a href="{{ route('books') }}" class="block hover:text-blue-500">علمی</a></li>
+                                    <li><a href="{{ route('books') }}" class="block hover:text-blue-500">تاریخی</a></li>
+                                    <li><a href="{{ route('books') }}" class="block hover:text-blue-500">هنری</a></li>
                                 </ul>
                             </div>
 
@@ -164,10 +164,10 @@
                             <div>
                                 <h3 class="font-semibold text-green-600 dark:text-green-400 mb-3">🎯 فیلترها</h3>
                                 <ul class="space-y-2">
-                                    <li><a href="#" class="block hover:text-green-500">پرفروش‌ها</a></li>
-                                    <li><a href="#" class="block hover:text-green-500">جدیدترین</a></li>
-                                    <li><a href="#" class="block hover:text-green-500">با تخفیف</a></li>
-                                    <li><a href="#" class="block hover:text-green-500">بر اساس امتیاز</a></li>
+                                    <li><a href="{{ route('books') }}" class="block hover:text-green-500">پرفروش‌ها</a></li>
+                                    <li><a href="{{ route('category.books', ['category' => 'newest']) }}" class="block hover:text-green-500">جدیدترین</a></li>
+                                    <li><a href="{{ route('category.books', ['category' => 'free']) }}" class="block hover:text-green-500">رایگان</a></li>
+                                    <li><a href="{{ route('books') }}" class="block hover:text-green-500">همه کتاب‌ها</a></li>
                                 </ul>
                             </div>
 
@@ -191,6 +191,9 @@
 
                 <x-bar-a :href="route('blog')" :active="request()->routeIs('blog')">
                     {{ __('Blog') }}
+                </x-bar-a>
+                <x-bar-a :href="route('forum.index')" :active="request()->routeIs('forum.*')">
+                    تالار گفتگو
                 </x-bar-a>
                 <x-bar-a :href="route('about-us')" :active="request()->routeIs('about-us')">
                     {{ __('About Us') }}
@@ -233,7 +236,7 @@
                 <x-responsive-nav-a :href="route('contact-us')" :active="request()->routeIs('contact-us')">
                     {{ __('Contact Us') }}
                 </x-responsive-nav-a>
-                <x-responsive-nav-a :href="route('contact-us')" :active="request()->routeIs('contact-us')">
+                <x-responsive-nav-a :href="route('forum.index')" :active="request()->routeIs('forum.*')">
                     تالار گفتگو
                 </x-responsive-nav-a>
 

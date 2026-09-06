@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Middlewares;
 use App\Http\Middleware;
-use App\Core\Authorization\Ownership;
+use Cyron\Authorization\Ownership;
 class ResourceOwnershipMiddleware extends Middleware
 {
     public function __construct(private string $model,private string $ownerKey='user_id',private string $routeParameter='id'){}

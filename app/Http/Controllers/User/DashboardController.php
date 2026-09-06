@@ -2,9 +2,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controller;
-use App\Core\Authentication\Auth;
-use App\Auth\SessionRegistry;
-use App\Request;
+use App\Models\Book;
+use App\Models\Library;
+use App\Models\UserSubscription;
+use Cyron\Authentication\Auth;
+use Cyron\Authentication\SessionRegistry;
+use Cyron\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -14,7 +17,14 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('user.dashboard', compact('user'));
+        $libraryCount = Library::where('user_id', $user->id)->count();
+        $activeSubscription = UserSubscription::where('user_id', $user->id)
+            ->where('status', 'active')
+            ->where('end_date', '>=', date('Y-m-d H:i:s'))
+            ->orderBy('end_date', 'desc')
+            ->first();
+
+        return view('user.dashboard', compact('user', 'libraryCount', 'activeSubscription'));
     }
 
     /**

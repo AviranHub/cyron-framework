@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
-use App\Request;
+use Cyron\Http\Request;
 
 class TestValidationController extends Controller
 {

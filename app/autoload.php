@@ -22,9 +22,46 @@ spl_autoload_register(function ($class) {
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
     if (file_exists($file)) {
-        require $file;
+        require_once $file;
     }
 });
+
+spl_autoload_register(function ($class) {
+    $prefix = 'App\\Database\\';
+    if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
+        return;
+    }
+
+    $cyronClass = 'Cyron\\Database\\' . substr($class, strlen($prefix));
+    if (class_exists($cyronClass) || interface_exists($cyronClass)) {
+        class_alias($cyronClass, $class);
+    }
+});
+
+spl_autoload_register(function ($class) {
+    $prefix = 'Cyron\\';
+    $base_dir = dirname(__DIR__) . '/src/Cyron/';
+
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
+    }
+
+    $relative_class = substr($class, $len);
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
+
+foreach (['Schema', 'TableBuilder', 'Migration'] as $databaseClass) {
+    $legacyClass = 'App\\Database\\' . $databaseClass;
+    $cyronClass = 'Cyron\\Database\\' . $databaseClass;
+    if (!class_exists($legacyClass, false) && class_exists($cyronClass)) {
+        class_alias($cyronClass, $legacyClass);
+    }
+}
 
 // بارگذاری خودکار پوشه‌ها با Glob (بهینه شده)
 function autoloadDirectory($directory)
@@ -38,20 +75,23 @@ function autoloadDirectory($directory)
     }
 }
 
-// بارگذاری مدل‌ها، کنترلرها، میدلورها و migration‌ها
-autoloadDirectory('Models');
-autoloadDirectory('Http/Controllers');
-autoloadDirectory('Http/Middlewares');
-// autoloadDirectory('database/Migrations');
-autoloadDirectory('Core/Lady');
+// Composer handles PSR-4 classes when available; retain eager loading only as a
+// fallback for installations that have not run Composer yet.
+$composerAvailable = class_exists('Composer\\Autoload\\ClassLoader', false);
+if (!$composerAvailable) {
+    autoloadDirectory('Models');
+    autoloadDirectory('Http/Controllers');
+    autoloadDirectory('Http/Middlewares');
+    autoloadDirectory('Services');
+}
 
 
 // ========== PHPMailer (بدون Composer) ==========
 // لود کردن کتابخانه PHPMailer به صورت دستی
-require_once APP_PATH . '/Libs/PHPMailer/Exception.php';
-require_once APP_PATH . '/Libs/PHPMailer/PHPMailer.php';
-require_once APP_PATH . '/Libs/PHPMailer/SMTP.php';
-require_once APP_PATH . '/Libs/PHPMailer/POP3.php';    // اختیاری
-require_once APP_PATH . '/Libs/PHPMailer/OAuthTokenProvider.php';   // اختیاری
-require_once APP_PATH . '/Libs/PHPMailer/OAuth.php';   // اختیاری
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/Exception.php';
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/PHPMailer.php';
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/SMTP.php';
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/POP3.php';    // اختیاری
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/OAuthTokenProvider.php';   // اختیاری
+require_once dirname(__DIR__) . '/src/Cyron/Libs/PHPMailer/OAuth.php';   // اختیاری
 // =================================================

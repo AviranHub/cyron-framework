@@ -2,7 +2,7 @@
 
 namespace App\Actions\Book;
 
-use App\Actions\BaseAction;
+use Cyron\Actions\BaseAction;
 use App\Models\Book;
 
 class LikeBook extends BaseAction

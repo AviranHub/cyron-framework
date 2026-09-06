@@ -4,7 +4,7 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Authentication\Tokenizer;
+use Cyron\Authentication\Tokenizer;
 
 class ApiAuthMiddleware extends Middleware
 {

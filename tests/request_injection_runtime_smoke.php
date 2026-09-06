@@ -4,11 +4,10 @@ $root=dirname(__DIR__);
 $script=<<<'PHP'
 define('BASE_PATH', __DIR__);
 define('APP_PATH', BASE_PATH.'/app');
-require APP_PATH.'/Core/Env.php';
+require BASE_PATH.'/src/Cyron/Support/Env.php';
 require APP_PATH.'/autoload.php';
-require APP_PATH.'/router.php';
-use App\Route;
-use App\Request;
+use Cyron\Routing\Route;
+use Cyron\Http\Request;
 
 class RequestInjectionSmokeController {
     public function show(Request $request, $id) {

@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\Admin\AdminController;
-use App\Route;
+use Cyron\Routing\Route;
 
 $models = require APP_PATH . '/config/admin_models.php';
 

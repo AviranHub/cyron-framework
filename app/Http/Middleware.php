@@ -2,14 +2,10 @@
 
 namespace App\Http;
 
-abstract class Middleware
+if (!class_exists('Cyron\\Http\\Middleware')) {
+    require_once dirname(__DIR__, 2) . '/src/Cyron/Http/Middleware.php';
+}
+
+abstract class Middleware extends \Cyron\Http\Middleware
 {
-    /**
-     * پردازش درخواست و عبور به میدلور بعدی
-     * 
-     * @param mixed $request
-     * @param callable $next
-     * @return mixed
-     */
-    abstract public function handle($request, $next);
 }

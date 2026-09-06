@@ -8,38 +8,42 @@ define('RESOURCES_PATH', BASE_PATH . '/resources');
 define('ROUTES_PATH', BASE_PATH . '/routes');
 define('STORAGE_PATH', BASE_PATH . '/storage');
 
+chdir(BASE_PATH);
+
 if (is_file(BASE_PATH . '/vendor/autoload.php')) {
     require_once BASE_PATH . '/vendor/autoload.php';
 }
-require_once APP_PATH . '/Core/Env.php';
-\App\Core\Env::load(BASE_PATH . '/.env');
-require_once APP_PATH . '/Libs/jdf.php';
+require_once BASE_PATH . '/src/Cyron/Support/Env.php';
+\Cyron\Support\Env::load(BASE_PATH . '/.env');
+require_once BASE_PATH . '/src/Cyron/Libs/jdf.php';
 require_once __DIR__ . '/app/autoload.php';
-require_once __DIR__ . '/app/helpers.php';
-require_once __DIR__ . '/app/str.php';
-require_once __DIR__ . '/app/router.php';
-require_once __DIR__ . '/app/lady.php';
-require_once __DIR__ . '/app/Request.php';
-require_once __DIR__ . '/app/database/Db.php';
-require_once __DIR__ . '/app/database/Model.php';
-require_once __DIR__ . '/app/database/Migration.php';
+require_once __DIR__ . '/src/Cyron/helpers.php';
+require_once __DIR__ . '/src/Cyron/Lady/LegacyConverter.php';
+require_once __DIR__ . '/src/Cyron/Database/Db.php';
+require_once __DIR__ . '/src/Cyron/Database/Model.php';
+require_once __DIR__ . '/src/Cyron/Database/Migration.php';
+require_once __DIR__ . '/src/Cyron/Database/Migrator.php';
+require_once __DIR__ . '/src/Cyron/Database/Schema.php';
 require_once __DIR__ . '/app/Http/Controller.php';
-require_once __DIR__ . '/app/Http/ErorrBag.php';
-require_once __DIR__ . '/app/Http/Storage.php';
+require_once __DIR__ . '/src/Cyron/Http/ErrorBag.php';
+require_once __DIR__ . '/src/Cyron/Http/Storage.php';
 require_once __DIR__ . '/app/Http/Middleware.php';
 
-if (!file_exists(__DIR__ . '/cli/Console.php')) {
-    mkdir(__DIR__ . '/cli', 0777, true);
-}
-require_once __DIR__ . '/cli/Console.php';
-require_once __DIR__ . '/cli/Input.php';
+require_once __DIR__ . '/src/Cyron/Console/Colors.php';
+require_once __DIR__ . '/src/Cyron/Console/Input.php';
+require_once __DIR__ . '/src/Cyron/Console/CommandLoader.php';
+require_once __DIR__ . '/src/Cyron/Console/Console.php';
+require_once __DIR__ . '/src/Cyron/Scheduling/ScheduledTask.php';
+require_once __DIR__ . '/src/Cyron/Scheduling/Schedule.php';
+require_once __DIR__ . '/src/Cyron/Scheduling/Scheduler.php';
+require_once __DIR__ . '/src/Cyron/Queue/Job.php';
+require_once __DIR__ . '/src/Cyron/Queue/Queue.php';
+require_once __DIR__ . '/src/Cyron/Queue/Worker.php';
+require_once __DIR__ . '/src/Cyron/Events/EventDispatcher.php';
+require_once __DIR__ . '/src/Cyron/Events/ListenerJob.php';
+require_once __DIR__ . '/src/Cyron/Events/Event.php';
 
-if (!file_exists(__DIR__ . '/cli/Commands')) {
-    mkdir(__DIR__ . '/cli/Commands', 0777, true);
-}
-foreach (glob(__DIR__ . '/cli/Commands/*.php') as $file) {
-    require_once $file;
-}
+\Cyron\Console\CommandLoader::load();
 
-$console = new Console();
+$console = new \Cyron\Console\Console();
 $console->run();

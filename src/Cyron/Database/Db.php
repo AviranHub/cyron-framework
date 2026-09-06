@@ -32,4 +32,19 @@ class Db
         if (self::$instance === null) self::$instance = new self();
         return self::$instance->mysqli;
     }
+
+    public static function transaction(callable $callback)
+    {
+        $db = self::getInstance();
+        $db->begin_transaction();
+
+        try {
+            $result = $callback($db);
+            $db->commit();
+            return $result;
+        } catch (\Throwable $exception) {
+            $db->rollback();
+            throw $exception;
+        }
+    }
 }

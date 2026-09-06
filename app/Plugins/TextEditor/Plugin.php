@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\TextEditor;
 
-use App\Core\Plugin\Plugin as BasePlugin;
+use Cyron\Plugin\Plugin as BasePlugin;
 
 class Plugin extends BasePlugin
 {

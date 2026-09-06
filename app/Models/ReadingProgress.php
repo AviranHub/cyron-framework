@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 
 class ReadingProgress extends Model
 {
     protected static $table = 'reading_progresses';
-    protected static array $fillable = [];
+    protected static array $fillable = ['user_id', 'book_id', 'last_page'];
 }

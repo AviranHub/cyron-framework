@@ -1,7 +1,7 @@
 <?php
 namespace App\Fakes;
 
-use App\Core\Faker;
+use Cyron\Faker;
 use App\Models\User;
 
 class UserFake

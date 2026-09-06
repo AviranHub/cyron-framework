@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Database\Model;
+use Cyron\Database\Model;
 
 class Shelf extends Model
 {
     protected static $table = 'shelves';
-    protected static array $fillable = [];
+    protected static array $fillable = ['user_id', 'name'];
 }

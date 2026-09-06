@@ -3,8 +3,8 @@
 namespace App\Http\Middlewares;
 
 use App\Http\Middleware;
-use App\Core\Authentication\Auth as AuthHelper;
-use App\Auth\SessionRegistry;
+use Cyron\Authentication\Auth as AuthHelper;
+use Cyron\Authentication\SessionRegistry;
 
 class AuthMiddleware extends Middleware
 {

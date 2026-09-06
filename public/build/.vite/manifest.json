@@ -1,12 +1,16 @@
 {
   "resources/Scripts/script.js": {
-    "file": "assets/script-BwdhqSVc.js",
+    "file": "assets/script-4KU1Syrr.js",
     "name": "script",
     "src": "resources/Scripts/script.js",
     "isEntry": true
   },
   "resources/Styles/style.css": {
-    "file": "assets/style-D3IFFp1n.css",
+    "file": "assets/style-BSkldPNB.css",
+    "name": "style",
+    "names": [
+      "style.css"
+    ],
     "src": "resources/Styles/style.css",
     "isEntry": true
   }

@@ -23,6 +23,13 @@
 					<label for="{{ $field }}" class="block text-sm font-bold text-gray-700 mb-2">{{ $labels[$field] ?? ucfirst(str_replace('_', ' ', $field)) }}{{ $required ? ' *' : '' }}</label>
 					@if($baseType === 'textarea')
 						<textarea name="{{ $field }}" id="{{ $field }}" rows="4" class="w-full rounded-lg border-gray-300" {{ $required ? 'required' : '' }}>{{ old($field) }}</textarea>
+                    @elseif($modelKey === 'discounts' && $field === 'target_id')
+						<select name="target_id" id="target_id" class="w-full rounded-lg border-gray-300">
+							<option value="">بدون هدف مشخص</option>
+							@foreach(($discountTargets ?? []) as $targetType => $targetItems)
+								@foreach($targetItems as $targetId => $targetLabel)<option value="{{ $targetId }}" data-target-type="{{ $targetType }}">{{ $targetLabel }} ({{ $targetType }})</option>@endforeach
+							@endforeach
+						</select>
 					@elseif($baseType === 'select')
 						<select name="{{ $field }}" id="{{ $field }}" class="w-full rounded-lg border-gray-300">
 							@foreach($options as $option)<option value="{{ trim($option) }}">{{ ucfirst(trim($option)) }}</option>@endforeach
@@ -45,3 +52,22 @@
 	</form>
 </div>
 @endsection
+
+@if($modelKey === 'discounts')
+<script>
+	(() => {
+		const type = document.getElementById('target_type');
+		const target = document.getElementById('target_id');
+		if (!type || !target) return;
+		const filter = () => {
+			const selected = type.value;
+			[...target.options].forEach(option => {
+				option.hidden = option.value !== '' && selected !== 'all' && option.dataset.targetType !== selected;
+			});
+			if (selected === 'all') target.value = '';
+		};
+		type.addEventListener('change', filter);
+		filter();
+	})();
+</script>
+@endif

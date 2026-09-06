@@ -4,9 +4,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controller;
-use App\Request;
-use App\Core\Authentication\Auth;
-use App\Core\Authentication\Tokenizer;
+use Cyron\Http\Request;
+use Cyron\Authentication\Auth;
+use Cyron\Authentication\Tokenizer;
 use App\Models\User;
 use App\Models\PersonalAccessToken;
 
